@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Mask",
+    "price": 5000,
+    "stock": 10,
+    "isActive": true,
+    "imageUrl": "url of  mask image",
+    "UserId": 1
+  },
+  {
+    "name": "Shoes",
+    "price": 15000,
+    "stock": 30,
+    "isActive": true,
+    "imageUrl": "url of shoes image",
+    "UserId": 2
+  },
+  {
+    "name": "Bike",
+    "price": 500000,
+    "stock": 5,
+    "isActive": true,
+    "imageUrl": "url of bike image",
+    "UserId": 3
+  }
+]
