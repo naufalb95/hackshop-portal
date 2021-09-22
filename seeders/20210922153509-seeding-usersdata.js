@@ -8,10 +8,10 @@ module.exports = {
       element.createdAt = new Date()
       element.updatedAt = new Date()
     })
-    return queryInterface.bulkInsert('UserDatas', data)
+    return queryInterface.bulkInsert('UserData', data)
   },
 
   down:  (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('UserDatas', null)
+    return queryInterface.bulkDelete('UserData', null)
   }
 };
