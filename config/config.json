@@ -1,20 +1,20 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "postgres",
+    "password": "postgres",
+    "database": "hackshop-portal",
+    "host": "localhost",
+    "dialect": "postgres"
   },
   "production": {
-    "use_env_variable":"postgres://jkxmazfxzcvvjz:9bf88a590c561ef642b5ef61e165b3e5c3701d9b38f466818ba88943243b4356@ec2-34-233-105-94.compute-1.amazonaws.com:5432/dcun606d8qnlfo",
+    "use_env_variable":"DATABASE_URL",
     "ssl": true,
     "dialect": "postgres",
     "protocol": "postgres",
     "dialectOptions": {
       "ssl": {
         "require": true,
-        "rejectUnaauthorized": false
+        "rejectUnauthorized": false
       }
     }
   }
