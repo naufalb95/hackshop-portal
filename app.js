@@ -12,6 +12,7 @@ app.get('/', (req, res) => {
 
 app.get('/seller', SellerController.showAll);
 
+app.get('/seller/items/:itemId/delete', SellerController.deleteitem)
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
