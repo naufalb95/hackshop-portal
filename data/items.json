@@ -5,7 +5,8 @@
     "stock": 10,
     "isActive": true,
     "imageUrl": "url of  mask image",
-    "UserId": 1
+    "UserId": 1,
+    "description": "Everyone can get invisibility power with this mask"
   },
   {
     "name": "Shoes",
@@ -13,7 +14,8 @@
     "stock": 30,
     "isActive": true,
     "imageUrl": "url of shoes image",
-    "UserId": 2
+    "UserId": 2,
+    "description": "This shoes is cannot be lost"
   },
   {
     "name": "Bike",
@@ -21,6 +23,7 @@
     "stock": 5,
     "isActive": true,
     "imageUrl": "url of bike image",
-    "UserId": 3
+    "UserId": 3,
+    "description": "This bike was completed with GPS and Bazooka"
   }
 ]

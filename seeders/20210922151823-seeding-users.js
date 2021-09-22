@@ -8,7 +8,6 @@ module.exports = {
       element.createdAt = new Date()
       element.updatedAt = new Date()
     })
-    console.log(data)
     return queryInterface.bulkInsert('Users', data)
   },
 
