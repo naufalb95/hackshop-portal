@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
   res.render('index', { title: 'HackShop Portal'});
 });
 
-app.get('/seller', SellerController.showAll);
+app.get('/seller/items', SellerController.showAll);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
