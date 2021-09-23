@@ -50,32 +50,31 @@ router.use('/items', itemsRoutes);
 router.get('/checkout', isLogin, isBuyer, BuyerController.checkOut);
 
 router.get('/test', (req, res) => {
-  nodemailer.createTestAccount()
-    .then((testAccount) => {
-      let transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false,
-        auth: {
-          user: testAccount.user,
-          pass: testAccount.pass
-        },
-      });
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "hackshop.portal@gmail.com",
+      pass: "zxcmnbcv"
+    },
+    logger: true,
+    transactionLog: true
+  });
 
-      return transporter.sendMail({
-        from: '"Fred Foo 👻" <foo@example.com>', // sender address
-        to: "982654ant@gmail.com", // list of receivers
-        subject: "Hello ✔", // Subject line
-        text: "Hello world?", // plain text body
-        html: "<b>Hello world?</b>", // html body
-      });
+  transporter.sendMail({
+    from: '"Naufal" <hackshop.portal@gmail.com>',
+    to: "982654ant@gmail.com",
+    subject: "Hello, just one step more to complete your registration at HackShop Portal",
+    text: "You should enable HTML on this",
+    html: `<p>Hi naufalb, click <a href="http://localhost:3000/verification=${ 'uuid' }">here</a> to complete your registration at HackShop Portal.</p>`
     })
-    .then((info) => {
-      console.log(info);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  .then((info) => {
+    console.log(info);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 });
 
 
