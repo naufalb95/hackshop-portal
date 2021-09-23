@@ -60,17 +60,54 @@ app.get('/seller/add', SellerController.showAddItemForm);
 
 app.post('/seller/add', upload.single('imageUrl'), SellerController.createItem);
 
-app.get('/seller/items/:itemId/detail', SellerController.showEditItem);
-app.post('/seller/items/:itemId/detail', SellerController.editItem);
+app.get('/items', (req, res) => {
+  res.render('buyer/', { dataAssets })
+});
 
+app.get('/items/:itemId', (req, res) => {
+  res.render('buyer/detail', { dataAssets })
+});
 
-app.get('/items', BuyerController.showAllItem);
-app.get('/items/:itemid/add', BuyerController.addToCart);
-app.get('/cart', BuyerController.showItemInCart);
-app.get('/checkout', BuyerController.checkOut);
-app.get('/items/:itemId', BuyerController.showDetailItem);
-app.get('/cart/:itemId/delete', BuyerController.deleteFromcart);
+// app.get('/items', BuyerController.showAllItem);
+// app.get('/items/:itemid/add', BuyerController.addToCart);
+// app.get('/cart', BuyerController.showItemInCart);
+// app.get('/checkout', BuyerController.checkOut);
+// app.get('/items/:itemId', BuyerController.showDetailItem);
+// app.get('/cart/:itemId/delete', BuyerController.deleteFromcart);
+app.get('/login', (req, res) => {
+  res.render('login', { dataAssets });
+})
 
+app.get('/register', (req, res) => {
+  res.render('register', { dataAssets });
+})
+
+app.get('/profile', (req, res) => {
+  res.render('edit_profile', { dataAssets });
+})
+
+app.get('/cart', (req, res) => {
+  const data = {
+    id: 1,
+    name: 'Keyboard',
+    price: 500000,
+    stock: 1,
+    isActive: true,
+    imageUrl: ''
+  }
+
+  res.render('cart', { item: data, dataAssets });
+})
+
+// app.get('/seller/items/:itemId/detail', SellerController.showEditItem);
+// app.post('/seller/items/:itemId/detail', SellerController.editItem);
+
+// app.get('/items', BuyerController.showAllItem);
+// app.get('/items/:itemid/add-to-cart', BuyerController.addToCart);
+// app.get('/cart', BuyerController.showItemInCart);
+// app.get('/checkout', BuyerController.checkOut);
+// app.get('/items/:itemId', BuyerController.showDetailItem);
+// app.get('/cart/:itemId/delete', BuyerController.deleteFromcart);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

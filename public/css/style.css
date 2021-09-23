@@ -204,15 +204,15 @@ li a:hover {
 }
 
 #seller-main-content {
-  min-height: 100vh;
+  min-height: calc(100vh - 21vh);
 }
 
 #seller-item-lists {
-  min-height: 100vh;
+  min-height: calc(100vh - 21vh);
 }
 
 #seller-item-edit {
-  min-height: 77vh;
+  min-height: calc(100vh - 21vh);
 }
 
 .nav-text-light {
@@ -227,11 +227,98 @@ li a:hover {
   width: 100px;
 }
 
-.btn-seller-edit {
+.btn-seller {
   width: 100px;
 }
 
 #seller-item-content {
   border: 1px solid #A9A9A9;
   border-radius: 15px;
+}
+
+#dropdown-sort {
+  width: 200px;
+}
+
+.card-manual {
+  margin: 18px 26px;
+  height: 300px;
+  width: 225px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 10px 12px 19px -7px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 10px 12px 19px -7px rgba(0,0,0,0.1);
+  -moz-box-shadow: 10px 12px 19px -7px rgba(0,0,0,0.3);
+  background-color: #FFF;
+}
+
+.card-manual-img {
+  height: 50%;
+}
+
+.card-manual-info-title {
+  color: #606060;
+  margin-top: 8px;
+  margin-left: 10px;
+}
+
+.card-manual-info-price {
+  height: 28px;
+  margin-top: -4px;
+  margin-left: 18px;
+  font-size: 18px;
+}
+
+.card-manual-info-buy {
+  position: absolute;
+  bottom: 0;
+  height: 40px;
+}
+
+.card-manual-info-buy a {
+  color: #444444;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#buyer-item-detail {
+  min-height: calc(100vh - 21vh);
+}
+
+#buyer-item-detail-img {
+  height: 400px;
+  width: 400px;
+}
+
+#item-detail-desc {
+  text-align: justify;
+}
+
+#item-detail-btn-atc button {
+  border: none;
+  background-color: #499fb5;
+  color: white;
+  padding: 5px 25px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#login {
+  min-height: calc(100vh - 21vh);
+}
+
+#register {
+  min-height: calc(100vh - 21vh);
+}
+
+#edit-profile {
+  min-height: calc(100vh - 21vh);
+}
+
+#cart {
+  min-height: calc(100vh - 21vh);
+}
+
+#seller-item-add {
+  min-height: calc(100vh - 21vh);
 }

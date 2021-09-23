@@ -1,7 +1,7 @@
-<%- include('../partials/header', { title: 'HackShop Job', isLandingPage: false }) %>
-<section id="seller-item-lists">
+<%- include('./partials/header', { title: 'HackShop Job', isLandingPage: false }) %>
+<section id="cart">
   <div class="container">
-    <h1 class="text-center my-4">Item Lists</h1>
+    <h1 class="text-center my-4">Cart</h1>
     <table class="table table-striped">
       <thead class="thead-dark">
         <tr class="text-center">
@@ -32,13 +32,17 @@
           </td>
           <td class="col-2">
             <div class="d-flex justify-content-center align-items-center">
-              <a href="/seller/items/<%= item.id %>/edit" class="btn btn-info btn-sm btn-seller-action">Edit</a>
-              <a href="/seller/items/<%= item.id %>/delete" class="btn btn-danger btn-sm ml-2 btn-seller-action">Delete</a>
+              <a href="/cart/<%= item.id %>/delete" class="btn btn-danger btn-sm ml-2 btn-seller-action">Delete</a>
             </div>
           </td>
         </tr>
       </tbody>
-    </table>  
+    </table>
+    <div class="text-left">
+      <div>
+        <a href="/checkout" class="btn btn-primary btn">Proceed to Checkout</a>
+      </div>
+    </div>
   </div>
 </section>
-<%- include('../partials/footer') %>
+<%- include('./partials/footer') %>
