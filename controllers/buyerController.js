@@ -52,7 +52,12 @@ class BuyerController {
           el.imageUrl = cloudinary.url(el.imageUrl);
         }); // instance method
 
-        res.render('buyer/', { items: data, querySort: querySort, querySearch: querySearch, dataAssets });
+        const loginObj = {
+          userId: req.session.userId,
+          role: req.session.role
+        }
+
+        res.render('buyer/', { items: data, querySort: querySort, querySearch: querySearch, loginObj, dataAssets });
       })
       .catch((err) => res.send(err));
   }
@@ -66,35 +71,54 @@ class BuyerController {
     })
       .then((data) => {
         data.imageUrl = cloudinary.url(data.imageUrl);
-        res.render('buyer/detail', { item: data, dataAssets });
+        
+        const loginObj = {
+          userId: req.session.userId,
+          role: req.session.role
+        }
+
+        res.render('buyer/detail', { item: data, loginObj, dataAssets });
       })
       .catch((err) => res.send(err));
   }
 
   static addToCart(req, res) {
+    const { userId } = req.session;
+
     Cart.create({
-      UserId: 1, // must be replace with session
+      UserId: userId, // must be replace with session
       ItemId: req.params.itemId
     })
-      .then(() => res.redirect('/items'))
+      .then(() => {res.redirect('/items')})
       .catch((err) => res.send(err));
   }
 
   static deleteFromCart(req, res) {
-    Cart.destroy({ where: { id: req.params.itemId } })
-      .then((data) => res.redirect('/cart'))
+    const { userId } = req.session;
+    const { itemId } = req.params;
+
+    Cart.destroy({
+      where: { ItemId: itemId, UserId: userId }
+    })
+      .then(() => {
+        res.redirect('/cart')
+      })
       .catch((err) => res.send(err));
   }
 
   static showCart(req, res) {
-    // const id = req.session.userId; // replace saat session
-    const id = 1;
+    const { userId } = req.session;
 
-    User.findByPk(id, {
+    User.findByPk(userId, {
       include: [Item]
     })
       .then((data) => {
-        res.render('cart', { items: data.Items, dataAssets })
+        const loginObj = {
+          userId: req.session.userId,
+          role: req.session.role
+        }
+
+        res.render('cart', { items: data.Items, loginObj, dataAssets })
       })
       .catch((err) => {
         res.render(err);
@@ -102,17 +126,39 @@ class BuyerController {
   }
 
   static checkOut(req, res) {
-    let itemKey = null;
+    const { userId } = req.session;
+    const itemKey = [];
 
     Cart.findAll({
       where: {
-        UserId: 1 //must be replace with session buyer id
+        UserId: userId
       }
     })
       .then((data) => {
-        itemKey = data; //uncomplete
+        data.forEach((el) => {
+          itemKey.push(el.ItemId);
+        });
+
+        return Item.decrement('stock', {
+          where: {
+            id: itemKey
+          }
+        })
       })
-      .catch((err) => res.send(err));
+      .then(() => {
+
+        return Cart.destroy({
+          where: {
+            UserId: userId
+          }
+        })
+      })
+      .then(() => {
+        res.redirect('/items');
+      })
+      .catch((err) => {
+        res.send(err);
+      })
   }
 }
 
