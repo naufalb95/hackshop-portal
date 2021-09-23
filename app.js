@@ -1,7 +1,5 @@
 const express = require('express');
 
-
-
 const SellerController = require('./controllers/sellerController');
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
@@ -33,7 +31,6 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', (req, res) => {
   res.render('index', { title: 'HackShop Portal'});
 });
-
 
 app.get('/seller', (req, res) => {
   res.render('seller/');
@@ -96,11 +93,8 @@ app.get('/seller/items/:itemId/detail', (req, res) => {
     isActive: true,
     imageUrl: ''
   }
+});
 
-  res.render('seller/detail', { item: data });
-})
-
-app.get('/seller/items/:itemId/delete', SellerController.deleteitem)
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
