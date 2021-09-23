@@ -65,7 +65,7 @@ app.post('/seller/items/:itemId/detail', SellerController.editItem);
 
 
 app.get('/items', BuyerController.showAllItem);
-app.get('/items/:itemid/add-to-cart', BuyerController.addToCart);
+app.get('/items/:itemid/add', BuyerController.addToCart);
 app.get('/cart', BuyerController.showItemInCart);
 app.get('/checkout', BuyerController.checkOut);
 app.get('/items/:itemId', BuyerController.showDetailItem);
