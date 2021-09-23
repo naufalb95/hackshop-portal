@@ -67,7 +67,7 @@ router.get('/test', (req, res) => {
     to: "982654ant@gmail.com",
     subject: "Hello, just one step more to complete your registration at HackShop Portal",
     text: "You should enable HTML on this",
-    html: `<p>Hi naufalb, click <a href="http://localhost:3000/verification=${ 'uuid' }">here</a> to complete your registration at HackShop Portal.</p>`
+    html: `<p>Hi naufalb, click <a href="http://localhost:3000/verification=${ 'uuid' }">here</a> to complete your registration at HackShop Portal.</p>` // ! jangan lupa dirubah ke https pas push ke heroku!
     })
   .then((info) => {
     console.log(info);

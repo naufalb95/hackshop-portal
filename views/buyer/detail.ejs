@@ -4,8 +4,10 @@
     <div class="row mt-5">
       <div class="col-6">
         <div class="w-100 d-flex justify-content-center">
-          <div id="buyer-item-detail-img" class="bg-info">
-            <img src="<%= item.imageUrl %>" alt="<%= item.name %>" class="image-fit" />
+          <div id="buyer-item-detail-img">
+            <div class="d-flex justify-content-center">
+              <img src="<%= item.imageUrl %>" alt="<%= item.name %>" class="image-fit" />
+            </div>
           </div>
         </div>
       </div>
@@ -30,9 +32,11 @@
           <div id="item-detail-desc">
             <%= item.description %>  
           </div>
+          <% if (loginObj.role === 'buyer') { %>
           <div id="item-detail-btn-atc" class="text-center mt-3">
             <a href="/items/<%= item.id %>/add"><button>Add Item</button></a>
           </div>
+          <% } %>
         </div>
       </div>
     </div>

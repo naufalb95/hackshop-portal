@@ -90,28 +90,31 @@ class SellerController {
 
   static postEditItem (req, res) {
     let { name, price, stock, description } = req.body;
+    const { itemId } = req.params;
     let imageUrl = req.file.filename;
 
-    Item.update({
-      name,
-      price,
-      stock,
-      imageUrl,
-      description
-    }, {
-      where: {
-        id: req.params.itemId
-      } 
-      
-    })
-    
-    .then( data => {
-      if (imageUrl) {
-        cloudinary.uploader.destroy(data.imageUrl);
-      }
-      res.redirect('/seller') 
-    }) 
-    .catch( err => res.send(err) )
+    Item.findByPk(itemId)
+      .then((data) => {
+        if (imageUrl) {
+          cloudinary.uploader.destroy(data.imageUrl);
+        }
+
+        return Item.update({
+          name,
+          price,
+          stock,
+          imageUrl,
+          description
+        }, {
+          where: {
+            id: itemId
+          }
+        });
+      })
+      .then( data => {
+        res.redirect('/seller') 
+      }) 
+      .catch( err => res.send(err) )
   }
 
   static showEditItem (req, res) {
