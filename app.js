@@ -10,9 +10,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 cloudinary.config({
-  cloud_name: "dbktyem00",
-  api_key: "424256335419546",
-  api_secret: "-cmA_6jrXw82HDUlhMmTDk1HBLs"
+  cloud_name: 'dbktyem00',
+  api_key: '424256335419546',
+  api_secret: '-cmA_6jrXw82HDUlhMmTDk1HBLs'
 });
 
 const storage = new CloudinaryStorage({
@@ -30,7 +30,8 @@ const dataAssets = {
   fsImg: null,
   fbImg: null,
   igImg: null
-}
+};
+
 dataAssets.bgImg = cloudinary.url('HackShop-Portal/assets/jumbotron_bg.jpg');
 dataAssets.fbImg = cloudinary.url('HackShop-Portal/assets/facebook.svg');
 dataAssets.fsImg = cloudinary.url('HackShop-Portal/assets/friendster.svg');
@@ -44,15 +45,11 @@ app.get('/', (req, res) => {
   res.render('index', { title: 'HackShop Portal', dataAssets });
 });
 
-app.get('/seller', (req, res) => {
-  res.render('seller/', { dataAssets });
-})
-
-app.get('/seller/items', SellerController.showAll);
+app.get('/seller', SellerController.showAll);
 
 app.get('/seller/items/:itemId/edit', SellerController.showEditItem);
 
-app.post('/seller/items/:itemId/edit',  SellerController.editItem);
+app.post('/seller/items/:itemId/edit', upload.single('imageUrl'), SellerController.postEditItem);
 
 app.get('/seller/items/:itemId/delete', SellerController.deleteItem);
 
@@ -60,31 +57,24 @@ app.get('/seller/add', SellerController.showAddItemForm);
 
 app.post('/seller/add', upload.single('imageUrl'), SellerController.createItem);
 
-app.get('/items', (req, res) => {
-  res.render('buyer/', { dataAssets })
-});
-
-app.get('/items/:itemId', (req, res) => {
-  res.render('buyer/detail', { dataAssets })
-});
-
-// app.get('/items', BuyerController.showAllItem);
-// app.get('/items/:itemid/add', BuyerController.addToCart);
-// app.get('/cart', BuyerController.showItemInCart);
+app.get('/items', BuyerController.showAllItem);
+app.get('/items/:itemId/add', BuyerController.addToCart);
+app.get('/cart', BuyerController.showCart);
 // app.get('/checkout', BuyerController.checkOut);
-// app.get('/items/:itemId', BuyerController.showDetailItem);
-// app.get('/cart/:itemId/delete', BuyerController.deleteFromcart);
+app.get('/items/:itemId', BuyerController.showDetailItem);
+app.get('/cart/:itemId/delete', BuyerController.deleteFromCart);
+
 app.get('/login', (req, res) => {
   res.render('login', { dataAssets });
-})
+});
 
 app.get('/register', (req, res) => {
   res.render('register', { dataAssets });
-})
+});
 
 app.get('/profile', (req, res) => {
   res.render('edit_profile', { dataAssets });
-})
+});
 
 app.get('/cart', (req, res) => {
   const data = {
@@ -94,10 +84,10 @@ app.get('/cart', (req, res) => {
     stock: 1,
     isActive: true,
     imageUrl: ''
-  }
+  };
 
   res.render('cart', { item: data, dataAssets });
-})
+});
 
 // app.get('/seller/items/:itemId/detail', SellerController.showEditItem);
 // app.post('/seller/items/:itemId/detail', SellerController.editItem);

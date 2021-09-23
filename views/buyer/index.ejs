@@ -16,30 +16,34 @@
       </div>
     </div>
     <div class="d-flex flex-wrap justify-content-start">
-      <div class="card-manual">
-        <div class="card-manual-img bg-info"></div>
-        <div class="card-manual-info h-50">
-          <div class="h-100 position-relative">
-            <div class="card-manual-info-title">
-              <h5>Nama Barang</h5>
-            </div>
-            <div class="card-manual-info-price">
-              <p>
-                <strong>
-                  Rp 500,000
-                </strong>
-              </p>
-            </div>
-            <div class="card-manual-info-buy w-100 d-flex justify-content-center align-items-center">
-              <p>
-                <a href="" class="middle">
-                  Add to Cart
-                </a>
-              </p>
+      <!--  -->
+      <% items.forEach((item) => { %>
+        <div class="card-manual">
+          <div class="card-manual-img bg-info"></div>
+          <div class="card-manual-info h-50">
+            <div class="h-100 position-relative">
+              <div class="card-manual-info-title">
+                <h5><%= item.name %></h5>
+              </div>
+              <div class="card-manual-info-price">
+                <p>
+                  <strong>
+                    <%= item.formatPrice %>
+                  </strong>
+                </p>
+              </div>
+              <div class="card-manual-info-buy w-100 d-flex justify-content-center align-items-center">
+                <p>
+                  <a href="/items/<%= item.id %>/add" class="middle">
+                    Add to Cart
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      <% }); %>
+      <!--  -->
     </div>
   </div>
 </section>

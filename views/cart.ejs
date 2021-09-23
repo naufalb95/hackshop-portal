@@ -12,12 +12,11 @@
         </tr>
       </thead>
       <tbody>
+        <% items.forEach((item) => { %> 
         <tr>
           <td class="col-6">
             <div class="d-flex justify-content-start align-items-center px-4">
-              <strong>
                 <%= item.name %>
-              </strong>
             </div>
           </td>
           <td class="col-2">
@@ -36,6 +35,7 @@
             </div>
           </td>
         </tr>
+        <% }) %>
       </tbody>
     </table>
     <div class="text-left">

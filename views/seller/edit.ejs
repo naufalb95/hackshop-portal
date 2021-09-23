@@ -7,23 +7,23 @@
         <form action="/seller/items/<%= item.id %>/edit" method="POST" enctype="multipart/form-data">
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="name">
+            <input type="text" class="form-control" id="name" name="name" value="<%= item.name %>">
           </div>
           <div class="form-group">
             <label for="price">Price</label>
-            <input type="number" class="form-control" id="price" name="price">
+            <input type="number" class="form-control" id="price" name="price" value="<%= item.price %>">
           </div>
           <div class="form-group">
             <label for="stock">Stock</label>
-            <input type="number" class="form-control" id="stock" name="stock">
+            <input type="number" class="form-control" id="stock" name="stock" value="<%= item.stock %>">
           </div>
           <div class="form-group">
             <label for="description">Description</label><br>
-            <textarea name="description" class="form-control" id="description"></textarea>
+            <textarea name="description" class="form-control" id="description"><%= item.description %></textarea>
           </div>
           <div class="form-group">
             <label for="imageUrl">Image</label><br>
-            <input type="file" name="imageUrl" id="imageUrlno">
+            <input type="file" name="imageUrl" id="imageUrl" value="<%= item.imageUrl %>">
           </div>
           <div class="text-center">
             <button type="submit" class="btn btn-primary btn-seller">Edit</button>

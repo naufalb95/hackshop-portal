@@ -1,67 +1,112 @@
-const { Item, User } = require('../models/index')
-const Op = require('sequelize').Op
-class BuyerController {
-  static showAllItem (req, res) {
-    let querySort = req.query.sort
-    let search = {}
-    if(querySort) {
-      if(querySort == 'date-asc'){
-        search.order = [['createdAt', 'ASC']]
-      }
-      if(querySort == 'date-desc'){
-        search.order = [['createdAt', 'DESC']]
-      }
-      if(querySort == 'price-asc'){
-        search.order = [['price', 'ASC']]
-      }
-      if(querySort == 'price-desc'){
-        search.order = [['price', 'DESC']]
-      }
-    }
-    Item.findAll(search)
-    .then( data => res.render('./buyer/list', {items: data}))
-    .catch( err => res.send(err) )
+const { Item, User, Cart } = require('../models/index');
+const Op = require('sequelize').Op;
+const cloudinary = require('cloudinary').v2;
+const multer = require('multer');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
+cloudinary.config({
+  cloud_name: 'dbktyem00',
+  api_key: '424256335419546',
+  api_secret: '-cmA_6jrXw82HDUlhMmTDk1HBLs'
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'HackShop-Portal',
+    allowedFormats: ['jpeg', 'jpg', 'png']
   }
-  static showDetailItem (req, res) {
+});
+
+const upload = multer({ storage });
+
+const dataAssets = {
+  bgImg: null,
+  fsImg: null,
+  fbImg: null,
+  igImg: null
+};
+
+dataAssets.bgImg = cloudinary.url('HackShop-Portal/assets/jumbotron_bg.jpg');
+dataAssets.fbImg = cloudinary.url('HackShop-Portal/assets/facebook.svg');
+dataAssets.fsImg = cloudinary.url('HackShop-Portal/assets/friendster.svg');
+dataAssets.igImg = cloudinary.url('HackShop-Portal/assets/instagram.svg');
+
+class BuyerController {
+  static showAllItem(req, res) {
+    let querySort = req.query.sort;
+    let search = {};
+
+    if (querySort) {
+      if (querySort === 'date-asc') search.order = [['createdAt', 'ASC']];
+      else if (querySort === 'date-desc')
+        search.order = [['createdAt', 'DESC']];
+      else if (querySort === 'price-asc') search.order = [['price', 'ASC']];
+      else if (querySort === 'price-desc') search.order = [['price', 'DESC']];
+    }
+
+    Item.findAll(search)
+      .then((data) => {
+        res.render('buyer/', { items: data, dataAssets });
+      })
+      .catch((err) => res.send(err));
+  }
+
+  static showDetailItem(req, res) {
     Item.findOne({
       where: {
         id: req.params.itemId
       },
-      include: ['UserData']
+      include: [ User ]
     })
-    .then( data => res.render('./buyer/detail', {item: data}))
-    .catch( err => res.send(err) )
+      .then((data) => res.render('buyer/detail', { item: data, dataAssets }))
+      .catch((err) => res.send(err));
   }
-  static addToCart (req, res) {
+
+  static addToCart(req, res) {
     Cart.create({
       UserId: 1, // must be replace with session
       ItemId: req.params.itemId
     })
-    .then( data => res.redirect('/items/:itemId'))
-    .catch( err => res.send(err) )
+      .then(() => res.redirect('/items'))
+      .catch((err) => res.send(err));
   }
-  static deleteFromcart (req, res) {
-    Cart.destroy({where: {id: req.params.cartId}})
-    .then( data => res.redirect('/cart'))
-    .catch( err => res.send(err) )
+
+  static deleteFromCart(req, res) {
+    Cart.destroy({ where: { id: req.params.itemId } })
+      .then((data) => res.redirect('/cart'))
+      .catch((err) => res.send(err));
   }
-  static showItemInCart (req, res) {
-    Cart.findAll()
-    .then( data => res.render('./buyer/cart', {item: data}))
-    .catch( err => res.send(err) )
+
+  static showCart(req, res) {
+    // const id = req.session.userId; // replace saat session
+    const id = 1;
+
+    User.findByPk(id, {
+      include: [Item]
+    })
+      .then((data) => {
+        console.log(data);
+        res.render('cart', { items: data.Items, dataAssets })
+      })
+      .catch((err) => {
+        res.render(err);
+      });
   }
-  static checkOut (req, res) {
-    let itemKey;
+
+  static checkOut(req, res) {
+    let itemKey = null;
+
     Cart.findAll({
       where: {
-        UserId: 1, //must be replace with session buyer id
+        UserId: 1 //must be replace with session buyer id
       }
     })
-    .then( data => {
-      itemKey = data //uncomplete
-    })
-    .catch( err => res.send(err) )
+      .then((data) => {
+        itemKey = data; //uncomplete
+      })
+      .catch((err) => res.send(err));
   }
 }
 
-module.exports = BuyerController
+module.exports = BuyerController;
