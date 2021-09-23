@@ -2,7 +2,7 @@ const { User, UserData, Item } = require('../models/index')
 
 class SellerController {
   static showAll (req, res) {
-    Item.findOne({
+    Item.findAll({
       where: {
         UserId: 2 // replace this UserId value with session
       }
@@ -18,14 +18,15 @@ class SellerController {
     }
     })
     .then( data => res.redirect('/seller/items'))
-    .catch( err => res.render(err) )
+    .catch( err => res.send(err) )
   }
 
   static showAddItemForm (req, res) {
-    res.render('addItemForm')
+    res.render('./seller/add')
   }
   static createItem (req, res) {
     let { name, price, stock, imageUrl, description} = req.body
+    console.log(description)
     Item.create({
       name,
       price,
