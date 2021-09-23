@@ -10,9 +10,21 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   UserData.init({
-    fullName: DataTypes.STRING,
-    location: DataTypes.STRING,
-    phoneNumber: DataTypes.STRING,
+    fullName: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: { msg: 'Please input your full name'}
+      }},
+    location: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: { msg: 'Please input your location!'}
+      }},
+    phoneNumber: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: { msg: 'Please input your phone number!'}
+      }},
     UserId: DataTypes.INTEGER
   }, {
     sequelize,
