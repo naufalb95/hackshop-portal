@@ -1,27 +1,37 @@
-<%- include('../partials/header', { title: 'HackShop Job'}) %>
-<h1>Add Item</h1>
-<form action="/seller/add" method="POST" enctype="multipart/form-data">
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" class="form-control" id="name" name="name">
+<%- include('../partials/header', { title: 'HackShop Job', isLandingPage: false }) %>
+<section id="seller-item-add">
+  <div class="container">
+    <h1 class="text-center my-4">Add Item</h1>
+    <div class="d-flex justify-content-center">
+      <div class="w-50 bg-light p-5" id="seller-item-content">
+        <form action="/seller/add" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name">
+          </div>
+          <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" class="form-control" id="price" name="price">
+          </div>
+          <div class="form-group">
+            <label for="stock">Stock</label>
+            <input type="number" class="form-control" id="stock" name="stock">
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label><br>
+            <textarea name="description" class="form-control" id="description"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="imageUrl">Image</label><br>
+            <input type="file" name="imageUrl" id="imageUrlno">
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-seller">Add</button>
+            <a href="/seller" class="btn btn-outline-danger btn-seller">Cancel</a>
+          </div>
+      </form>
+    </div>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="price">Price</label>
-    <input type="number" class="form-control" id="price" name="price">
-  </div>
-  <div class="form-group">
-    <label for="stock">Stock</label>
-    <input type="number" class="form-control" id="stock" name="stock">
-  </div>
-  <div class="form-group">
-    <label for="imageUrl">Image</label><br>
-    <input type="file" name="imageUrl" id="imageUrlno">
-  </div>
-  <div class="form-group">
-    <label for="description">Description</label><br>
-    <textarea name="description" id="description"></textarea>
-  </div>
-  <button class="btn btn-primary">Add Item</button>
-  <a href="/seller" class="btn btn-danger">Cancel</a>
-</form>
+</section>
 <%- include('../partials/footer') %>

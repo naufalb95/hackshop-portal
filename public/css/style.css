@@ -227,7 +227,7 @@ li a:hover {
   width: 100px;
 }
 
-.btn-seller-edit {
+.btn-seller {
   width: 100px;
 }
 
@@ -308,5 +308,17 @@ li a:hover {
 }
 
 #register {
+  min-height: calc(100vh - 21vh);
+}
+
+#edit-profile {
+  min-height: calc(100vh - 21vh);
+}
+
+#cart {
+  min-height: calc(100vh - 21vh);
+}
+
+#seller-item-add {
   min-height: calc(100vh - 21vh);
 }

@@ -69,8 +69,9 @@ class SellerController {
   }
 
   static showAddItemForm (req, res) {
-    res.render('./seller/add')
+    res.render('./seller/add', { dataAssets })
   }
+
   static createItem (req, res) {
     let { name, price, stock, imageUrl, description} = req.body
     console.log(description)
@@ -96,7 +97,7 @@ class SellerController {
       isActive: true,
       imageUrl: ''
     }
-    
+
     res.render('./seller/edit', {item: data, dataAssets})
     // Item.findOne({
     //   where: {

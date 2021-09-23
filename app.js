@@ -75,6 +75,23 @@ app.get('/register', (req, res) => {
   res.render('register', { dataAssets });
 })
 
+app.get('/profile', (req, res) => {
+  res.render('edit_profile', { dataAssets });
+})
+
+app.get('/cart', (req, res) => {
+  const data = {
+    id: 1,
+    name: 'Keyboard',
+    price: 500000,
+    stock: 1,
+    isActive: true,
+    imageUrl: ''
+  }
+
+  res.render('cart', { item: data, dataAssets });
+})
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
