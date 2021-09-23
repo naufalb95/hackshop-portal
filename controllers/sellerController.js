@@ -10,6 +10,17 @@ class SellerController {
     .then( data => res.render('./seller/index', {item: data}) )
     .catch( err => res.send(err) )
   }
+
+  static deleteItem (req, res) {
+    Item.destroy({
+      where: {
+        id: req.params.itemId
+    }
+    })
+    .then( data => res.redirect('/seller/items'))
+    .catch( err => res.render(err) )
+  }
+
   static showAddItemForm (req, res) {
     res.render('addItemForm')
   }
@@ -26,6 +37,7 @@ class SellerController {
     })
     .then( data => res.redirect('/seller/items') )
     .catch( err => res.send(err) )
+
   }
 }
 
