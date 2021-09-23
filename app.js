@@ -24,27 +24,27 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage });
 
+const dataAssets = {
+  bgImg: null,
+  fsImg: null,
+  fbImg: null,
+  igImg: null
+}
+dataAssets.bgImg = cloudinary.url('HackShop-Portal/assets/jumbotron_bg.jpg');
+dataAssets.fbImg = cloudinary.url('HackShop-Portal/assets/facebook.svg');
+dataAssets.fsImg = cloudinary.url('HackShop-Portal/assets/friendster.svg');
+dataAssets.igImg = cloudinary.url('HackShop-Portal/assets/instagram.svg');
+
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ express: true }));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
-  const data = {
-    bgImg: null,
-    fsImg: null,
-    fbImg: null,
-    igImg: null
-  }
-  data.bgImg = cloudinary.url('HackShop-Portal/assets/jumbotron_bg.jpg');
-  data.fbImg = cloudinary.url('HackShop-Portal/assets/facebook.svg');
-  data.fsImg = cloudinary.url('HackShop-Portal/assets/friendster.svg');
-  data.igImg = cloudinary.url('HackShop-Portal/assets/instagram.svg');
-  
-  res.render('index', { title: 'HackShop Portal', data });
+  res.render('index', { title: 'HackShop Portal', dataAssets });
 });
 
 app.get('/seller', (req, res) => {
-  res.render('seller/');
+  res.render('seller/', { dataAssets });
 })
 
 app.get('/seller/items', SellerController.showAll);
