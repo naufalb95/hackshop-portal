@@ -122,12 +122,14 @@ class BuyerController {
       include: [Item]
     })
       .then((data) => {
+        let filtered = Item.filterIsActive(data.Items)
+
         const loginObj = {
           userId: req.session.userId,
           role: req.session.role
         }
 
-        res.render('cart', { items: data.Items, loginObj, dataAssets })
+        res.render('cart', { items: filtered, loginObj, dataAssets })
       })
       .catch((err) => {
         res.render(err);
@@ -136,17 +138,32 @@ class BuyerController {
 
   static checkOut(req, res) {
     const { userId } = req.session;
-    const itemKey = [];
+    let itemKey = [];
 
     Cart.findAll({
       where: {
         UserId: userId
       }
     })
-      .then((data) => {
+      .then ((data) => {
         data.forEach((el) => {
-          itemKey.push(el.ItemId);
+          itemKey.push(el.ItemId)
+        })
+        return Item.findAll({
+          where: {
+            id: itemKey,
+            isActive: true,
+            stock: {[Op.gt]: 0}
+          }
+        })
+      })
+      .then((data) => {
+        let temp = []
+        data.forEach((el) => {
+          temp.push(el.id);
         });
+
+        itemKey = temp
 
         return Item.decrement('stock', {
           where: {
@@ -155,10 +172,11 @@ class BuyerController {
         })
       })
       .then(() => {
-
+        console.log(itemKey)
         return Cart.destroy({
           where: {
-            UserId: userId
+            UserId: userId,
+            ItemId: itemKey
           }
         })
       })
