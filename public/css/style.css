@@ -175,11 +175,11 @@ li a:hover {
 }
 
 .nav-menu-list {
-  color: #EDEDED;
+  color: inherit;
 }
 
 .nav-menu-list:hover {
-  color: #EDEDED;
+  color: inherit;
 }
 
 .footer-title {
@@ -201,4 +201,37 @@ li a:hover {
 
 .footer-icon:hover {
   filter: invert(52%) sepia(0%) saturate(5018%) hue-rotate(216deg) brightness(96%) contrast(83%);
+}
+
+#seller-main-content {
+  min-height: 100vh;
+}
+
+#seller-item-lists {
+  min-height: 100vh;
+}
+
+#seller-item-edit {
+  min-height: 77vh;
+}
+
+.nav-text-light {
+  color: #444444;
+}
+
+.nav-text-dark {
+  color: #EDEDED;
+}
+
+.btn-seller-action {
+  width: 100px;
+}
+
+.btn-seller-edit {
+  width: 100px;
+}
+
+#seller-item-content {
+  border: 1px solid #A9A9A9;
+  border-radius: 15px;
 }

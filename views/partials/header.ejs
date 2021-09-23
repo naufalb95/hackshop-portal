@@ -18,11 +18,11 @@
     <title><%= title %></title>
   </head>
   <body>
-    <nav class="navbar navbar-dark">
+    <nav class="navbar <%= (isLandingPage) ? 'navbar-dark nav-text-dark' : 'navbar-light nav-text-light' %>">
       <section class="container">
         <div class="mx-5 d-flex align-items-center justify-content-between w-100">
           <div class="d-inline-block">
-            <a class="navbar-brand" href="/">HackShop Portal</a>
+            <a class="navbar-brand nav-text-light" href="/">HackShop Portal</a>
           </div>
           <div class="d-inline-block" id="search-bar">
             <form action="/items">
