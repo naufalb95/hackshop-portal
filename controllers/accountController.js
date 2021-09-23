@@ -118,23 +118,35 @@ class AccountController {
   }
 
   static postEditUser (req, res) {
-    let { fullName, location, phoneNumber } = req.body
+    let { fullName, location, phoneNumber } = req.body;
+    const { userId } = req.session;
+    console.log(req.body);
+    console.log(req.session);
+
     UserData.update( {
       fullName,
       location,
       phoneNumber
     }, {
       where: {
-        id: req.session.userId
+        UserId: userId
       }
     })
-    .then( () => {
+      .then(() => {
       if (req.session.role === 'seller') {
       res.redirect('/seller');
     } else if (req.session.role === 'buyer') {
       res.redirect('/items');}
     })
-    .catch ( err => res.send(err) )
+      .catch(err => {
+        const errorLists = [];
+        
+        err.errors.forEach((el) => {
+          errorLists.push(el.message);
+        });
+
+        res.redirect(`/profile?errors=${errorLists}`);
+      })
   }
 }
 

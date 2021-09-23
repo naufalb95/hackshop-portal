@@ -97,6 +97,7 @@ router.get('/verificate', (req, res) => {
       });
     })
     .then(() => {
+      console.log(req.session);
       if (req.session.role === 'buyer') {
         res.redirect('/items');
       } else if (req.session.role === 'seller') {

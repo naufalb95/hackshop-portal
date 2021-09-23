@@ -1,9 +1,10 @@
-const { Item, User, Cart } = require('../models/index');
+const { Item, User, Cart, UserData } = require('../models/index');
 const Op = require('sequelize').Op;
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const formatDate = require('../helpers/formatDate');
+const nodemailer = require("nodemailer");
 
 cloudinary.config({
   cloud_name: 'dbktyem00',
@@ -139,6 +140,8 @@ class BuyerController {
   static checkOut(req, res) {
     const { userId } = req.session;
     let itemKey = [];
+    const itemsName = [];
+    const itemsPrice = [];
 
     Cart.findAll({
       where: {
@@ -160,10 +163,74 @@ class BuyerController {
       .then((data) => {
         let temp = []
         data.forEach((el) => {
+          itemsName.push(el.name);
+          itemsPrice.push(el.price);
           temp.push(el.id);
         });
 
-        itemKey = temp
+        itemKey = temp;
+
+        return UserData.findOne({
+          where: {
+            UserId: userId
+          },
+          include: [User]
+        })
+      })
+          .then((data) => {
+            let transporter = nodemailer.createTransport({
+              host: "smtp.gmail.com",
+              port: 465,
+              secure: true,
+              auth: {
+                user: "hackshop.portal@gmail.com",
+                pass: "zxcmnbcv"
+              },
+              logger: true,
+              transactionLog: true
+            });
+
+            let items = ``;
+
+            for (let i = 0; i < itemsName.length; i++) {
+              items += `
+              <tr>
+                <td>${itemsName[i]}</td>
+                <td>${itemsPrice[i]}</td>
+              </tr>`;
+            }
+          
+            transporter.sendMail({
+              from: '"HackShop Portal" <hackshop.portal@gmail.com>',
+              to: `${data.User.email}`,
+              subject: "Hello, your order has been received",
+              text: "You should enable HTML on this",
+              html: `<p>Hi ${data.User.username}, we have received your order. Here is the summary</p>
+              <table border="1">
+                <thead>
+                  <tr>
+                    <th>Item Name</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${items}
+                </tbody>
+              </table>
+              <div>
+              <h4>Recipient's Address</h4>
+              <p>${data.fullName}</p>
+              <p>${data.phoneNumber}</p>
+              <p>${data.location}</p>
+              </div>
+              ` // ! jangan lupa dirubah ke https pas push ke heroku!
+              })
+            .then((info) => {
+              console.log(info);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
 
         return Item.decrement('stock', {
           where: {
@@ -172,7 +239,6 @@ class BuyerController {
         })
       })
       .then(() => {
-        console.log(itemKey)
         return Cart.destroy({
           where: {
             UserId: userId,
@@ -184,6 +250,7 @@ class BuyerController {
         res.redirect('/items');
       })
       .catch((err) => {
+        console.log(err);
         res.send(err);
       });
   }
