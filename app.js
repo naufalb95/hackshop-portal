@@ -1,6 +1,7 @@
 const express = require('express');
 
 const SellerController = require('./controllers/sellerController');
+const BuyerController = require('./controllers/buyerController');
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
@@ -71,6 +72,12 @@ app.get('/seller/items/:itemId/detail', (req, res) => {
     imageUrl: ''
   }
 });
+
+// app.get('/buyer', BuyerController._);
+// app.get('/buyer/:buyerid/cart', BuyerController._);
+// app.get('/buyer/:cartid/checkout', BuyerController._);
+// app.get('/buyer/:buyerid/editprofile', BuyerController._);
+
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
