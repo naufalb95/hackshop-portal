@@ -36,7 +36,7 @@ class BuyerController {
   static showAllItem(req, res) {
     let querySort = req.query.sort;
 
-    let search = {where: {}};
+    let search = {where: {}, order: [['createdAt', 'DESC']]}
     let keyword = req.query.search
 
     let querySearch = req.query.search;
@@ -58,6 +58,8 @@ class BuyerController {
           el.imageUrl = cloudinary.url(el.imageUrl);
         }); // instance method
 
+        data = Item.filterIsActive(data)
+        
         const loginObj = {
           userId: req.session.userId,
           role: req.session.role
