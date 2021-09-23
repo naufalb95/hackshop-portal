@@ -2,6 +2,12 @@
 <section id="cart">
   <div class="container">
     <h1 class="text-center my-4">Cart</h1>
+    <% if (items.length === 0) { %>
+      <div class="text-center">
+        <h4>Hey, it looks like you haven't make take any item at all. Let's grab some!</h4>
+        <a href="/items" class="btn btn-warning">Click me to browse awesome items!</a>
+      </div>
+    <% } else { %>
     <table class="table table-striped">
       <thead class="thead-dark">
         <tr class="text-center">
@@ -39,10 +45,11 @@
       </tbody>
     </table>
     <div class="text-left">
-      <div>
+      <div class="d-flex justify-content-end">
         <a href="/checkout" class="btn btn-primary btn">Proceed to Checkout</a>
       </div>
     </div>
+    <% } %>
   </div>
 </section>
 <%- include('./partials/footer') %>

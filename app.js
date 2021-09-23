@@ -54,50 +54,6 @@ app.use(session({
 
 app.use(routes);
 
-// app.get('/', (req, res) => {
-//   res.render('index', { title: 'HackShop Portal', dataAssets });
-// });
-
-// app.get('/seller', isLogin, SellerController.showAll);
-
-// app.get('/seller/items/:itemId/edit', SellerController.showEditItem);
-
-// app.post('/seller/items/:itemId/edit', upload.single('imageUrl'), SellerController.postEditItem);
-
-// app.get('/seller/items/:itemId/delete', SellerController.deleteItem);
-
-// app.get('/seller/add', SellerController.showAddItemForm);
-
-// app.post('/seller/add', upload.single('imageUrl'), SellerController.createItem);
-
-// app.get('/items', BuyerController.showAllItem);
-// app.get('/items/:itemId/add', BuyerController.addToCart);
-// app.get('/cart', BuyerController.showCart);
-// app.get('/checkout', BuyerController.checkOut);
-// app.get('/items/:itemId', BuyerController.showDetailItem);
-// app.get('/cart/:itemId/delete', BuyerController.deleteFromCart);
-
-// app.get('/login', (req, res) => {
-//   const loginObj = {
-//     userId: req.session.userId,
-//     role: req.session.role
-//   };
-
-//   res.render('login', { errors: [], loginObj, dataAssets });
-// });
-
-// app.get('/register', (req, res) => {
-//   res.render('register', { errors: [], dataAssets });
-// });
-
-// app.get('/profile', (req, res) => {
-//   res.render('edit_profile', { errors: [], dataAssets });
-// });
-
-// app.post('/register', AccountController.createAccount);
-
-// app.post('/login', AccountController.checkLogin);
-
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });

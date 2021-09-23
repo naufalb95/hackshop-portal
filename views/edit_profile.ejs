@@ -10,7 +10,7 @@
             <input type="text" class="form-control" name="fullName" id="fullName">
             <% if (errors.findIndex((error) => error.message === 'Please input your full name!') !== -1) { %>
               <div class="alert alert-danger" role="alert">
-                <%= %>
+                Please input your full name!
               </div>
             <% } %>
           </div>
@@ -20,7 +20,7 @@
             <input type="text" class="form-control" name="location" id="location">
             <% if (errors.findIndex((error) => error.message === 'Please input your location!') !== -1) { %>
               <div class="alert alert-danger" role="alert">
-                <%= %>
+                Please input your location!
               </div>
             <% } %>
           </div>
@@ -30,7 +30,7 @@
             <input type="text" class="form-control" name="phoneNumber" id="phoneNumber">
             <% if (errors.findIndex((error) => error.message === 'Please input your phone number!') !== -1) { %>
               <div class="alert alert-danger" role="alert">
-                <%= %>
+                Please input your phone number!
               </div>
             <% } %>
           </div>

@@ -42,14 +42,23 @@ class SellerController {
     .catch( err => res.send(err) )
   }
 
-  static deleteItem (req, res) {
-    Item.destroy({
-      where: {
-        id: req.params.itemId
-    }
-    })
-    .then( () => res.redirect('/seller'))
-    .catch( err => res.send(err) )
+  static deleteItem(req, res) {
+    const { itemId } = req.params;
+
+    Item.findByPk(itemId)
+      .then((data) => {
+        cloudinary.uploader.destroy(data.imageUrl);
+        
+        return Item.destroy({
+          where: {
+            id: req.params.itemId
+          }
+        });
+      })
+      .then(() => {
+        res.redirect('/seller')
+      })
+      .catch( err => res.send(err) )
   }
 
   static showAddItemForm(req, res) {

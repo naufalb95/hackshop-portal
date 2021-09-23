@@ -22,7 +22,7 @@
       <section class="container">
         <div class="mx-5 d-flex align-items-center justify-content-between w-100">
           <div class="d-inline-block">
-            <a class="navbar-brand nav-text-light" href="/">HackShop Portal</a>
+            <a class="navbar-brand nav-text-light" href="/">HackShop <strong><%= (loginObj.role === 'seller') ? 'Seller' : '' %></strong> Portal</a>
           </div>
           <% if (!loginObj.userId) { %>
           <div class="d-inline-block" id="search-bar">
@@ -53,6 +53,7 @@
             </div>
             <div class="d-inline-block">
               <ul>
+                <li class="d-inline-block mx-3 right"><a href="/items" class="nav-menu-list">List Items</a></li>
                 <li class="d-inline-block mx-3 right"><a href="/cart" class="nav-menu-list">My Cart</a></li>
                 <li class="d-inline-block ml-3 right"><a href="/profile" class="nav-menu-list">Edit Profile</a></li>
                 <li class="d-inline-block ml-3 right"><a href="/logout" class="nav-menu-list">Logout</a></li>

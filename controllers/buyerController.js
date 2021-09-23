@@ -164,7 +164,7 @@ class BuyerController {
       })
       .catch((err) => {
         res.send(err);
-      })
+      });
   }
 }
 

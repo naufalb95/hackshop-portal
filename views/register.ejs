@@ -10,7 +10,7 @@
             <input type="text" class="form-control" name="username" id="username">
             <% if (errors.findIndex((error) => error.message === 'Please input username!') !== -1) { %>
               <div class="alert alert-danger" role="alert">
-                <%= %>
+                Please input username!
               </div>
             <% } %>
           </div>
@@ -20,7 +20,7 @@
             <input type="email" class="form-control" name="email" id="email">
             <% if (errors.findIndex((error) => error.message === 'Please input email!') !== -1) { %>
               <div class="alert alert-danger" role="alert">
-                <%= %>
+                Please input email!
               </div>
             <% } %>
           </div>
@@ -30,7 +30,7 @@
             <input type="password" class="form-control" name="password" id="password">
             <% if (errors.findIndex((error) => error.message === 'Please input password!') !== -1) { %>
               <div class="alert alert-danger" role="alert">
-                <%= %>
+                Please input password
               </div>
             <% } %>
           </div>
@@ -43,7 +43,7 @@
             </select>
             <% if (errors.findIndex((error) => error.message === 'Please select role!') !== -1) { %>
               <div class="alert alert-danger" role="alert">
-                <%= %>
+                Please select role!
               </div>
             <% } %>
           </div>
@@ -53,7 +53,7 @@
             <input type="text" class="form-control" name="fullName" id="fullName">
             <% if (errors.findIndex((error) => error.message === 'Please input your full name!') !== -1) { %>
               <div class="alert alert-danger" role="alert">
-                <%= %>
+                Please input your full name!
               </div>
             <% } %>
           </div>
@@ -63,7 +63,7 @@
             <input type="text" class="form-control" name="location" id="location">
             <% if (errors.findIndex((error) => error.message === 'Please input your location!') !== -1) { %>
               <div class="alert alert-danger" role="alert">
-                <%= %>
+                Please input your location!
               </div>
             <% } %>
           </div>
@@ -73,7 +73,7 @@
             <input type="text" class="form-control" name="phoneNumber" id="phoneNumber">
             <% if (errors.findIndex((error) => error.message === 'Please input your phone number!') !== -1) { %>
               <div class="alert alert-danger" role="alert">
-                <%= %>
+                Please input your phone number!
               </div>
             <% } %>
           </div>

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const nodemailer = require("nodemailer");
 
 const BuyerController = require('../controllers/buyerController');
 const AccountController = require('../controllers/accountController');
@@ -39,6 +40,35 @@ router.use('/seller', sellerRoutes);
 router.use('/items', itemsRoutes);
 
 router.get('/checkout', BuyerController.checkOut);
+
+router.get('/test', (req, res) => {
+  nodemailer.createTestAccount()
+    .then((testAccount) => {
+      let transporter = nodemailer.createTransport({
+        host: "smtp.ethereal.email",
+        port: 587,
+        secure: false,
+        auth: {
+          user: testAccount.user,
+          pass: testAccount.pass
+        },
+      });
+
+      return transporter.sendMail({
+        from: '"Fred Foo 👻" <foo@example.com>', // sender address
+        to: "982654ant@gmail.com", // list of receivers
+        subject: "Hello ✔", // Subject line
+        text: "Hello world?", // plain text body
+        html: "<b>Hello world?</b>", // html body
+      });
+    })
+    .then((info) => {
+      console.log(info);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 
 module.exports = router;

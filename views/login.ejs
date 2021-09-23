@@ -8,10 +8,20 @@
           <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" name="email" id="email">
+            <% if (errors.findIndex((error) => error.message === 'Please input email!') !== -1) { %>
+              <div class="alert alert-danger" role="alert">
+                Please input email!
+              </div>
+            <% } %>
           </div>
           <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" name="password" id="password">
+            <% if (errors.findIndex((error) => error.message === 'Please input password!') !== -1) { %>
+              <div class="alert alert-danger" role="alert">
+                Please input password
+              </div>
+            <% } %>
           </div>
           <div class="text-center">
             <button type="submit" class="btn btn-success">Login</button>
