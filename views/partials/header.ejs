@@ -24,8 +24,8 @@
           <div class="d-inline-block">
             <a class="navbar-brand nav-text-light" href="/">HackShop Portal</a>
           </div>
-          <%# if (!isLogin) { %>
-          <!-- <div class="d-inline-block" id="search-bar">
+          <% if (!loginObj.userId) { %>
+          <div class="d-inline-block" id="search-bar">
             <form action="/items">
               <input type="text" id="search-bar-input" name="search" placeholder="Search MacBook">
             </form>
@@ -35,17 +35,17 @@
               <li class="d-inline-block mx-3 right"><a href="/login" class="nav-menu-list">Login</a></li>
               <li class="d-inline-block ml-3 right"><a href="/register" class="nav-menu-list">Register</a></li>
             </ul>
-          </div> -->
-          <%# } else if (isLogin && role === 'seller') { %>
+          </div>
+          <% } else if (loginObj.userId && loginObj.role === 'seller') { %>
             <div class="d-inline-block">
               <ul>
-                <li class="d-inline-block mx-3 right"><a href="/login" class="nav-menu-list">Add Item</a></li>
-                <li class="d-inline-block mx-3 right"><a href="/login" class="nav-menu-list">List Items</a></li>
-                <li class="d-inline-block ml-3 right"><a href="/register" class="nav-menu-list">Edit Profile</a></li>
-                <li class="d-inline-block ml-3 right"><a href="/register" class="nav-menu-list">Logout</a></li>
+                <li class="d-inline-block mx-3 right"><a href="/seller/add" class="nav-menu-list">Add Item</a></li>
+                <li class="d-inline-block mx-3 right"><a href="/seller" class="nav-menu-list">List Items</a></li>
+                <li class="d-inline-block ml-3 right"><a href="/profile" class="nav-menu-list">Edit Profile</a></li>
+                <li class="d-inline-block ml-3 right"><a href="/logout" class="nav-menu-list">Logout</a></li>
               </ul>
             </div>
-          <!-- <%# } else if (isLogin && role === 'buyer') { %>
+          <% } else if (loginObj.userId && loginObj.role === 'buyer') { %>
             <div class="d-inline-block" id="search-bar">
               <form action="/items">
                 <input type="text" id="search-bar-input" name="search" placeholder="Search MacBook">
@@ -53,12 +53,12 @@
             </div>
             <div class="d-inline-block">
               <ul>
-                <li class="d-inline-block mx-3 right"><a href="/login" class="nav-menu-list">My Cart</a></li>
-                <li class="d-inline-block ml-3 right"><a href="/register" class="nav-menu-list">Edit Profile</a></li>
-                <li class="d-inline-block ml-3 right"><a href="/register" class="nav-menu-list">Logout</a></li>
+                <li class="d-inline-block mx-3 right"><a href="/cart" class="nav-menu-list">My Cart</a></li>
+                <li class="d-inline-block ml-3 right"><a href="/profile" class="nav-menu-list">Edit Profile</a></li>
+                <li class="d-inline-block ml-3 right"><a href="/logout" class="nav-menu-list">Logout</a></li>
               </ul>
             </div>
-          <%# } %> -->
+          <% } %>
         </div>
       </section>
     </nav>

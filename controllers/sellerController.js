@@ -1,25 +1,14 @@
-const showDateItemPost = require('../helpers/formatDate');
-const { User, UserData, Item } = require('../models/index');
-
 const cloudinary = require('cloudinary').v2;
-const multer = require('multer');
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
+const { Item } = require('../models/index');
+
+const showDateItemPost = require('../helpers/formatDate');
 
 cloudinary.config({
   cloud_name: "dbktyem00",
   api_key: "424256335419546",
   api_secret: "-cmA_6jrXw82HDUlhMmTDk1HBLs"
 });
-
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: 'HackShop-Portal',
-    allowedFormats: ['jpeg', 'jpg', 'png']
-  }
-});
-
-const upload = multer({ storage });
 
 const dataAssets = {
   bgImg: null,
@@ -35,13 +24,20 @@ dataAssets.igImg = cloudinary.url('HackShop-Portal/assets/instagram.svg');
 
 class SellerController {
   static showAll(req, res) {
+    const { userId } = req.session;
+
     Item.findAll({
       where: {
-        UserId: 1 // replace this UserId value with session
+        UserId: userId
       }
     })
-    .then( data => {
-      res.render('./seller', { items: data, dataAssets });
+      .then(data => {
+        const loginObj = {
+          userId: req.session.userId,
+          role: req.session.role
+        };
+
+      res.render('./seller', { items: data, loginObj, dataAssets });
     })
     .catch( err => res.send(err) )
   }
@@ -52,16 +48,22 @@ class SellerController {
         id: req.params.itemId
     }
     })
-    .then( data => res.redirect('/seller/items'))
+    .then( () => res.redirect('/seller'))
     .catch( err => res.send(err) )
   }
 
-  static showAddItemForm (req, res) {
-    res.render('./seller/add', { dataAssets })
+  static showAddItemForm(req, res) {
+    const loginObj = {
+      userId: req.session.userId,
+      role: req.session.role
+    };
+
+    res.render('./seller/add', { loginObj, dataAssets })
   }
 
   static createItem (req, res) {
     const { name, price, stock, description } = req.body;
+    const { userId } = req.session;
     const imageUrl = req.file.filename;
 
     Item.create({
@@ -69,7 +71,7 @@ class SellerController {
       price,
       stock,
       imageUrl,
-      UserId: 1, //userId filled with session
+      UserId: userId,
       description
     })
     .then( () => res.redirect('/seller') )
@@ -98,8 +100,13 @@ class SellerController {
 
   static showEditItem (req, res) {
     Item.findByPk(req.params.itemId)
-      .then(data => 
-        res.render('./seller/edit', { item: data, dataAssets }))
+      .then(data => {
+        const loginObj = {
+          userId: req.session.userId,
+          role: req.session.role
+        };
+
+        res.render('./seller/edit', { item: data, loginObj, dataAssets })})
     .catch( err => res.send(err) )
   }
 }
