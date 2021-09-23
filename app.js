@@ -60,24 +60,16 @@ app.get('/seller/add', SellerController.showAddItemForm);
 
 app.post('/seller/add', upload.single('imageUrl'), SellerController.createItem);
 
-app.get('/seller/items/:itemId/detail', (req, res) => {
-  const { itemId } = req.params;
-  
-  const data = {
-    id: itemId,
-    name: 'Keyboard',
-    price: 500000,
-    stock: 1,
-    isActive: true,
-    imageUrl: ''
-  }
-});
+app.get('/seller/items/:itemId/detail', SellerController.showEditItem);
+app.post('/seller/items/:itemId/detail', SellerController.editItem);
+
 
 app.get('/items', BuyerController.showAllItem);
 app.get('/items/:itemid/add-to-cart', BuyerController.addToCart);
-// app.get('/cart', BuyerController._);
-// app.get('/checkout', BuyerController._);
+app.get('/cart', BuyerController.showItemInCart);
+app.get('/checkout', BuyerController.checkOut);
 app.get('/items/:itemId', BuyerController.showDetailItem);
+app.get('/cart/:itemId/delete', BuyerController.deleteFromcart);
 
 
 app.listen(port, () => {
