@@ -9,6 +9,18 @@ module.exports = (sequelize, DataTypes) => {
       Item.belongsToMany(models.User, { through: 'Carts' });
     }
 
+    static filterIsActive (data) {
+      let arr = []
+      data.forEach( element => {
+        if( element.stock < 1 ) {
+          element.isActive = false
+        }
+        if( element.isActive === true ) {
+          arr.push(element)
+        }
+      })
+      return arr
+    }
     get formatPrice() {
       return this.price.toLocaleString("id-ID", {style: "currency", currency:"IDR"})
     }

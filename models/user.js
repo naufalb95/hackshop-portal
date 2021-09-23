@@ -13,10 +13,23 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   User.init({
-    username: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
+    username: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: { msg: 'Please input username!'}
+      }},
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: { msg: 'Please input email!'}
+      }},
+    password: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: { msg: 'Please input password!'}
+      }},
     status: DataTypes.STRING
+     
   }, {
     hooks: {
       beforeCreate: (instance) => {

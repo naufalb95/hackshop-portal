@@ -80,8 +80,11 @@ class SellerController {
   }
 
   static postEditItem (req, res) {
-    let { name, price, stock, imageUrl, description } = req.body;
-    console.log({ name, price, stock, imageUrl, description })
+    let { name, price, stock, description } = req.body;
+    let imageUrl = req.file.filename
+
+    // console.log({ name, price, stock, imageUrl, description })
+
     Item.update({
       name,
       price,
@@ -94,7 +97,13 @@ class SellerController {
       } 
       
     })
-    .then( data => res.redirect('/seller') ) 
+    
+    .then( data => {
+      if (imageUrl) {
+        cloudinary.uploader.destroy(data.imageUrl);
+      }
+      res.redirect('/seller') 
+    }) 
     .catch( err => res.send(err) )
   }
 
