@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.UserData)
       User.hasMany(models.Item)
       User.belongsToMany(models.Item, {through: 'Carts'})
+      User.hasOne(models.Verification)
     }
   }
 
@@ -31,10 +32,12 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: { msg: 'Please input password!'}
       }
     },
-    status: DataTypes.STRING
+    status: DataTypes.STRING,
+    isVerificated: DataTypes.BOOLEAN,
   }, {
     hooks: {
       beforeCreate: (instance) => {
+        instance.isVerificated = false
         const salt = bcrypt.genSaltSync(10);
         const hashedPassword = bcrypt.hashSync(instance.password, salt);
         instance.password = hashedPassword;
