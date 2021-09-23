@@ -28,7 +28,7 @@ const dataAssets = {
   igImg: null
 };
 
-dataAssets.bgImg = cloudinary.url('HackShop-Portal/assets/jumbotron_bg.jpg');
+dataAssets.bgImg = cloudinary.url('HackShop-Portal/assets/jumbotron_bg');
 dataAssets.fbImg = cloudinary.url('HackShop-Portal/assets/facebook.svg');
 dataAssets.fsImg = cloudinary.url('HackShop-Portal/assets/friendster.svg');
 dataAssets.igImg = cloudinary.url('HackShop-Portal/assets/instagram.svg');
@@ -61,41 +61,21 @@ class SellerController {
   }
 
   static createItem (req, res) {
-    let { name, price, stock, imageUrl, description} = req.body
-    console.log(description)
+    const { name, price, stock, description } = req.body;
+    const imageUrl = req.file.filename;
+
     Item.create({
       name,
       price,
       stock,
-      isActive: true,//isActive filled with hooks
       imageUrl,
-      UserId: 1,//userId filled with session
+      UserId: 1, //userId filled with session
       description
     })
-    .then( data => res.redirect('/seller') )
+    .then( () => res.redirect('/seller') )
     .catch( err => res.send(err) )
 
   }
-
-  // static showEditItem(req, res) {
-  //   const data = {
-  //     id: 1,
-  //     name: 'Keyboard',
-  //     price: 500000,
-  //     stock: 1,
-  //     isActive: true,
-  //     imageUrl: ''
-  //   }
-
-  //   res.render('seller/edit', { item: data, dataAssets });
-  //   // Item.findOne({
-  //   //   where: {
-  //   //     id: req.params.itemId
-  //   //   }
-  //   // })
-  //   // .then ( data => res.render('./seller/edit', {item: data}))
-  //   // .catch( err => res.send(err) )
-  // }
 
   static postEditItem (req, res) {
     let { name, price, stock, imageUrl, description } = req.body;

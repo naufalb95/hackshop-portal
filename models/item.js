@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
   {
     hooks: {
       beforeCreate: (instance) => {
-        instance.isActive = true
+        instance.isActive = true;
       }
     },
     sequelize,

@@ -37,15 +37,19 @@ dataAssets.fbImg = cloudinary.url('HackShop-Portal/assets/facebook.svg');
 dataAssets.fsImg = cloudinary.url('HackShop-Portal/assets/friendster.svg');
 dataAssets.igImg = cloudinary.url('HackShop-Portal/assets/instagram.svg');
 
+const isLogin = (req, res, next) => {
+  if (true) next();
+}
+
 app.set('view engine', 'ejs');
-app.use(express.urlencoded({ express: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
   res.render('index', { title: 'HackShop Portal', dataAssets });
 });
 
-app.get('/seller', SellerController.showAll);
+app.get('/seller', isLogin, SellerController.showAll);
 
 app.get('/seller/items/:itemId/edit', SellerController.showEditItem);
 
@@ -88,16 +92,6 @@ app.get('/cart', (req, res) => {
 
   res.render('cart', { item: data, dataAssets });
 });
-
-// app.get('/seller/items/:itemId/detail', SellerController.showEditItem);
-// app.post('/seller/items/:itemId/detail', SellerController.editItem);
-
-// app.get('/items', BuyerController.showAllItem);
-// app.get('/items/:itemid/add-to-cart', BuyerController.addToCart);
-// app.get('/cart', BuyerController.showItemInCart);
-// app.get('/checkout', BuyerController.checkOut);
-// app.get('/items/:itemId', BuyerController.showDetailItem);
-// app.get('/cart/:itemId/delete', BuyerController.deleteFromcart);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

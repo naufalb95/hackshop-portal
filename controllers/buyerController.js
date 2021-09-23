@@ -59,7 +59,10 @@ class BuyerController {
       },
       include: [ User ]
     })
-      .then((data) => res.render('buyer/detail', { item: data, dataAssets }))
+      .then((data) => {
+        const imgUrl = cloudinary.url(data.imageUrl);
+        res.render('buyer/detail', { item: data, imgUrl, dataAssets });
+      })
       .catch((err) => res.send(err));
   }
 
@@ -86,7 +89,6 @@ class BuyerController {
       include: [Item]
     })
       .then((data) => {
-        console.log(data);
         res.render('cart', { items: data.Items, dataAssets })
       })
       .catch((err) => {

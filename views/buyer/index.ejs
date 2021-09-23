@@ -8,8 +8,8 @@
       </div>
       <div id="dropdown-sort">
         <select name="" id="" class="form-control" onchange="window.location = `?sort=${this.options[this.selectedIndex].value}`">
-          <option value="date-asc">Tanggal Terlama</option>
           <option value="date-desc">Tanggal Terbaru</option>
+          <option value="date-asc">Tanggal Terlama</option>
           <option value="price-asc">Harga Termurah</option>
           <option value="price-desc">Harga Termahal</option>
         </select>
@@ -28,7 +28,7 @@
               <div class="card-manual-info-price">
                 <p>
                   <strong>
-                    <%= item.formatPrice %>
+                    <%= item.price %>
                   </strong>
                 </p>
               </div>

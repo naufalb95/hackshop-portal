@@ -18,6 +18,13 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     status: DataTypes.STRING
   }, {
+    hooks: {
+      beforeCreate: (instance) => {
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(instance.password, salt);
+        instance.password = hashedPassword;
+      }
+    },
     sequelize,
     modelName: 'User',
   });
