@@ -116,6 +116,26 @@ class AccountController {
       })
       .catch(err => res.send(err));
   }
+
+  static postEditUser (req, res) {
+    let { fullName, location, phoneNumber } = req.body
+    UserData.update( {
+      fullName,
+      location,
+      phoneNumber
+    }, {
+      where: {
+        id: req.session.userId
+      }
+    })
+    .then( () => {
+      if (req.session.role === 'seller') {
+      res.redirect('/seller');
+    } else if (req.session.role === 'buyer') {
+      res.redirect('/items');}
+    })
+    .catch ( err => res.send(err) )
+  }
 }
 
 module.exports = AccountController;

@@ -59,6 +59,8 @@ router.post('/register', AccountController.createAccount);
 
 router.post('/login', AccountController.checkLogin);
 
+router.post('/edit', AccountController.postEditUser);
+
 router.use('/seller', sellerRoutes);
 
 router.use('/items', itemsRoutes);

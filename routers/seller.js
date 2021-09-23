@@ -4,6 +4,7 @@ const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
+const { User } = require('../models')
 const SellerController = require('../controllers/sellerController');
 const ItemController = require('../controllers/itemController');
 
