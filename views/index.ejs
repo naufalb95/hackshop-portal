@@ -1,3 +1,27 @@
 <%- include('./partials/header', { title: 'HackShop Job'}) %>
-
+<section id="landing-page-jumbotron" style="background-image: url('<%= data.bgImg %>')">
+  <div id="landing-page-jumbotron-bg">
+    <div class="container h-100 d-flex justify-content-center align-items-center">
+      <div class="text-center">
+        <h1>HackShop Portal</h1>
+        <h2>Let's start searching your favorite items</h2>
+        <a href="/items"><button class="btn-def">
+          <div class="middle">
+            Browse Item
+          </div>
+        </button></a>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="landing-page-about">
+  <div class="d-flex justify-content-center align-items-center h-100">
+    <div class="text-center">
+      <h2>Get everything you need from HackShop Portal</h2>
+      <div class="w-75 d-inline-block">
+        <p><em>We come from Indonesia. We try to reach you and others to make an unbelievable experience you never get from another marketplace.</em></p>
+      </div>
+    </div>
+  </div>
+</section>
 <%- include('./partials/footer') %>
