@@ -38,25 +38,9 @@ app.get('/seller', (req, res) => {
 
 app.get('/seller/items', SellerController.showAll);
 
-app.get('/seller/items/:itemId/edit', (req, res) => {
-  const { itemId } = req.params;
+app.get('/seller/items/:itemId/edit', SellerController.showEditItem);
 
-  const data = {
-    id: itemId,
-    name: 'Keyboard',
-    price: 500000,
-    stock: 1,
-    isActive: true,
-    imageUrl: ''
-  }
-
-  res.render('seller/edit', { title: 'Edit', item: data });
-});
-
-app.post('/seller/items/:itemId/edit', upload.single('myfile'), (req, res) => {
-  console.log(req.file);
-  console.log(req.body);
-});
+app.post('/seller/items/:itemId/edit',  SellerController.editItem);
 
 app.get('/seller/items/:itemId/delete', SellerController.deleteItem);
 

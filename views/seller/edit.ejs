@@ -1,21 +1,25 @@
 <%- include('../partials/header', { title: 'HackShop Job'}) %>
 <h1>Edit Item</h1>
-<form action="/seller/add/:itemId/edit" method="POST" enctype="multipart/form-data">
+<form action="/seller/items/<%= item.id %>/edit" method="POST" enctype="multipart/form-data">
   <div class="form-group">
     <label for="name">Name</label>
     <input type="text" class="form-control" id="name" name="name">
   </div>
   <div class="form-group">
     <label for="price">Price</label>
-    <input type="number" class="form-control" id="price" price="price">
+    <input type="number" class="form-control" id="price" name="price">
   </div>
   <div class="form-group">
     <label for="stock">Stock</label>
-    <input type="number" class="form-control" id="stock" stock="stock">
+    <input type="number" class="form-control" id="stock" name="stock">
   </div>
   <div class="form-group">
     <label for="imageUrl">Image</label><br>
     <input type="file" name="imageUrl" id="imageUrlno">
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label><br>
+    <textarea name="description" id="description"></textarea>
   </div>
   <button class="btn btn-primary">Edit Item</button>
   <a href="/seller" class="btn btn-danger">Cancel</a>
