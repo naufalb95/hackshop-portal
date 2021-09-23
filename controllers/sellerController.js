@@ -41,7 +41,7 @@ class SellerController {
       }
     })
     .then( data => {
-      res.render('./seller/lists', { items: data, dataAssets });
+      res.render('./seller', { items: data, dataAssets });
     })
     .catch( err => res.send(err) )
   }

@@ -35,8 +35,11 @@ dataAssets.igImg = cloudinary.url('HackShop-Portal/assets/instagram.svg');
 class BuyerController {
   static showAllItem(req, res) {
     let querySort = req.query.sort;
+
     let search = {where: {}};
     let keyword = req.query.search
+
+    let querySearch = req.query.search;
 
     if (keyword) {
       search.where.name = {[Op.iLike] : `%${keyword}%`}
@@ -51,7 +54,11 @@ class BuyerController {
 
     Item.findAll(search)
       .then((data) => {
-        res.render('buyer/', { items: data, dataAssets });
+        data.forEach((el) => {
+          el.imageUrl = cloudinary.url(el.imageUrl);
+        }); // instance method
+
+        res.render('buyer/', { items: data, querySort: querySort, querySearch: querySearch, dataAssets });
       })
       .catch((err) => res.send(err));
   }
@@ -64,8 +71,8 @@ class BuyerController {
       include: [ User ]
     })
       .then((data) => {
-        const imgUrl = cloudinary.url(data.imageUrl);
-        res.render('buyer/detail', { item: data, imgUrl, dataAssets });
+        data.imageUrl = cloudinary.url(data.imageUrl);
+        res.render('buyer/detail', { item: data, dataAssets });
       })
       .catch((err) => res.send(err));
   }

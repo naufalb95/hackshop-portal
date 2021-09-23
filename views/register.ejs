@@ -2,40 +2,82 @@
 <section id="register">
   <div class="container">
     <div class="d-flex justify-content-center mt-5">
-      <div class="w-25">
+      <div class="w-50">
         <h1 class="text-center">Register</h1>
         <form action="/register" method="POST">
           <div class="form-group">
             <label for="username">Username</label>
             <input type="text" class="form-control" name="username" id="username">
+            <% if (errors.findIndex((error) => error.message === 'Please input username!') !== -1) { %>
+              <div class="alert alert-danger" role="alert">
+                <%= %>
+              </div>
+            <% } %>
           </div>
+
           <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" name="email" id="email">
+            <% if (errors.findIndex((error) => error.message === 'Please input email!') !== -1) { %>
+              <div class="alert alert-danger" role="alert">
+                <%= %>
+              </div>
+            <% } %>
           </div>
+
           <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" name="password" id="password">
+            <% if (errors.findIndex((error) => error.message === 'Please input password!') !== -1) { %>
+              <div class="alert alert-danger" role="alert">
+                <%= %>
+              </div>
+            <% } %>
           </div>
+
           <div class="form-group">
             <label for="status">Select Role</label>
             <select class="form-control" name="status" id="status">
               <option value="buyer">Buyer</option>
               <option value="seller">Seller</option>
             </select>
+            <% if (errors.findIndex((error) => error.message === 'Please select role!') !== -1) { %>
+              <div class="alert alert-danger" role="alert">
+                <%= %>
+              </div>
+            <% } %>
           </div>
+
           <div class="form-group">
             <label for="fullName">Full Name</label>
             <input type="text" class="form-control" name="fullName" id="fullName">
+            <% if (errors.findIndex((error) => error.message === 'Please input your full name!') !== -1) { %>
+              <div class="alert alert-danger" role="alert">
+                <%= %>
+              </div>
+            <% } %>
           </div>
+
           <div class="form-group">
             <label for="location">Location</label>
             <input type="text" class="form-control" name="location" id="location">
+            <% if (errors.findIndex((error) => error.message === 'Please input your location!') !== -1) { %>
+              <div class="alert alert-danger" role="alert">
+                <%= %>
+              </div>
+            <% } %>
           </div>
+
           <div class="form-group">
             <label for="phoneNumber">Phone Number</label>
             <input type="text" class="form-control" name="phoneNumber" id="phoneNumber">
+            <% if (errors.findIndex((error) => error.message === 'Please input your phone number!') !== -1) { %>
+              <div class="alert alert-danger" role="alert">
+                <%= %>
+              </div>
+            <% } %>
           </div>
+
           <div class="text-center">
             <button type="submit" class="btn btn-success">Register</button>
             <a href="/" class="btn btn-outline-danger">Cancel</a>

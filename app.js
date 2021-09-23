@@ -49,6 +49,10 @@ app.get('/', (req, res) => {
   res.render('index', { title: 'HackShop Portal', dataAssets });
 });
 
+// const arr = [1, 2];
+
+// console.log(arr.findIndex((el) => el === 3));
+
 app.get('/seller', isLogin, SellerController.showAll);
 
 app.get('/seller/items/:itemId/edit', SellerController.showEditItem);
@@ -69,15 +73,15 @@ app.get('/items/:itemId', BuyerController.showDetailItem);
 app.get('/cart/:itemId/delete', BuyerController.deleteFromCart);
 
 app.get('/login', (req, res) => {
-  res.render('login', { dataAssets });
+  res.render('login', { errors: [], dataAssets });
 });
 
 app.get('/register', (req, res) => {
-  res.render('register', { dataAssets });
+  res.render('register', { errors: [], dataAssets });
 });
 
 app.get('/profile', (req, res) => {
-  res.render('edit_profile', { dataAssets });
+  res.render('edit_profile', { errors: [], dataAssets });
 });
 
 app.get('/cart', (req, res) => {
