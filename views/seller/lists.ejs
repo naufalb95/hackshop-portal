@@ -1,0 +1,35 @@
+<%- include('../partials/header', { title: 'HackShop Job'}) %>
+<h1>Item Lists</h1>
+<table class="table">
+  <thead>
+    <tr class="text-center">
+      <th>Item Info</th>
+      <th>Price</th>
+      <th>Stock</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="text-center">
+      <td class="text-left">
+        <div class="px-3 h-100 d-flex">
+          <div class="item-img">
+            <div class="d-flex justify-content-center align-items center bg-warning h-100">
+              <img src="<%= item.imageUrl %>" alt="<%= item.name %>">
+            </div>
+          </div>
+          <div class="m-2 item-desc">
+            <%= item.name %>
+          </div>
+        </div>
+      </td>
+      <td><%= item.price %></td>
+      <td><%= item.stock %></td>
+      <td>
+        <a href="/seller/items/<%= item.id %>/edit" class="btn btn-info">Edit</a>
+        <a href="/seller/items/<%= item.id %>/delete" class="btn btn-danger">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<%- include('../partials/footer') %>
