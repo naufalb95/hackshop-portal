@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
   UserData.init({
     fullName: DataTypes.STRING,
     address: DataTypes.STRING,
-    phoneNumber: DataTypes.STRING
+    phoneNumber: DataTypes.STRING,
+    UserId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'UserData',
