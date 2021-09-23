@@ -204,15 +204,15 @@ li a:hover {
 }
 
 #seller-main-content {
-  min-height: 100vh;
+  min-height: calc(100vh - 20vh);
 }
 
 #seller-item-lists {
-  min-height: 100vh;
+  min-height: calc(100vh - 20vh);
 }
 
 #seller-item-edit {
-  min-height: 77vh;
+  min-height: calc(100vh - 20vh);
 }
 
 .nav-text-light {
@@ -234,4 +234,49 @@ li a:hover {
 #seller-item-content {
   border: 1px solid #A9A9A9;
   border-radius: 15px;
+}
+
+#dropdown-sort {
+  width: 200px;
+}
+
+.card-manual {
+  margin: 18px 26px;
+  height: 300px;
+  width: 225px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 10px 12px 19px -7px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 10px 12px 19px -7px rgba(0,0,0,0.1);
+  -moz-box-shadow: 10px 12px 19px -7px rgba(0,0,0,0.3);
+  background-color: #FFF;
+}
+
+.card-manual-img {
+  height: 50%;
+}
+
+.card-manual-info-title {
+  color: #606060;
+  margin-top: 8px;
+  margin-left: 10px;
+}
+
+.card-manual-info-price {
+  height: 28px;
+  margin-top: -4px;
+  margin-left: 18px;
+  font-size: 18px;
+}
+
+.card-manual-info-buy {
+  position: absolute;
+  bottom: 0;
+  height: 40px;
+}
+
+.card-manual-info-buy a {
+  color: #444444;
+  font-weight: bold;
+  font-size: 18px;
 }

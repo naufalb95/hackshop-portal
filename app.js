@@ -59,17 +59,8 @@ app.get('/seller/add', SellerController.showAddItemForm);
 
 app.post('/seller/add', upload.single('imageUrl'), SellerController.createItem);
 
-app.get('/seller/items/:itemId/detail', (req, res) => {
-  const { itemId } = req.params;
-  
-  const data = {
-    id: itemId,
-    name: 'Keyboard',
-    price: 500000,
-    stock: 1,
-    isActive: true,
-    imageUrl: ''
-  }
+app.get('/items', (req, res) => {
+  res.render('buyer/', { dataAssets })
 });
 
 app.listen(port, () => {
