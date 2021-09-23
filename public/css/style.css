@@ -204,15 +204,15 @@ li a:hover {
 }
 
 #seller-main-content {
-  min-height: calc(100vh - 20vh);
+  min-height: calc(100vh - 21vh);
 }
 
 #seller-item-lists {
-  min-height: calc(100vh - 20vh);
+  min-height: calc(100vh - 21vh);
 }
 
 #seller-item-edit {
-  min-height: calc(100vh - 20vh);
+  min-height: calc(100vh - 21vh);
 }
 
 .nav-text-light {
@@ -279,4 +279,26 @@ li a:hover {
   color: #444444;
   font-weight: bold;
   font-size: 18px;
+}
+
+#buyer-item-detail {
+  min-height: calc(100vh - 21vh);
+}
+
+#buyer-item-detail-img {
+  height: 400px;
+  width: 400px;
+}
+
+#item-detail-desc {
+  text-align: justify;
+}
+
+#item-detail-btn-atc button {
+  border: none;
+  background-color: #499fb5;
+  color: white;
+  padding: 5px 25px;
+  font-weight: bold;
+  font-size: 20px;
 }

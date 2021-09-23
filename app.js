@@ -63,6 +63,10 @@ app.get('/items', (req, res) => {
   res.render('buyer/', { dataAssets })
 });
 
+app.get('/items/:itemId', (req, res) => {
+  res.render('buyer/detail', { dataAssets })
+});
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
