@@ -100,7 +100,6 @@ app.get('/seller/items/:itemId/detail', (req, res) => {
   res.render('seller/detail', { item: data });
 })
 
-app.get('/seller/items/:itemId/delete', SellerController.deleteitem)
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
