@@ -1,0 +1,20 @@
+[
+  {
+    "fullName": "Cahyo",
+    "address": "Jl. Palimana no.7, Tangerang",
+    "phoneNumber": "0895482645685",
+    "UserId": 1
+  },
+  {
+    "fullName": "Ardi",
+    "address": "Jl. Kejaksaan no.90, Tangerang",
+    "phoneNumber": "082458763157",
+    "UserId": 2
+  },
+  {
+    "fullName": "Yanto",
+    "address": "Jl. Palimana no.7, Tangerang",
+    "phoneNumber": "084864821467",
+    "UserId": 3
+  }
+]

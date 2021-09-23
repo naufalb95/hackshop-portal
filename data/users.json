@@ -1,0 +1,20 @@
+[
+  {
+    "username": "cahyo01",
+    "email": "cahyoganteng@mail.com",
+    "password": "passwordcahyo",
+    "status": "seller"
+  },
+  {
+    "username": "aryokeren",
+    "email": "aryo90@gmail.co.id",
+    "password": "passwordaryo",
+    "status": "seller"
+  },
+  {
+    "username": "yantogaming",
+    "email": "yantogaming@yahoo.com",
+    "password": "passwordyanto",
+    "status": "seller"
+  }
+]
