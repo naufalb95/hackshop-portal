@@ -35,8 +35,12 @@ dataAssets.igImg = cloudinary.url('HackShop-Portal/assets/instagram.svg');
 class BuyerController {
   static showAllItem(req, res) {
     let querySort = req.query.sort;
-    let search = {};
+    let search = {where: {}};
+    let keyword = req.query.search
 
+    if (keyword) {
+      search.where.name = {[Op.iLike] : `%${keyword}%`}
+    }
     if (querySort) {
       if (querySort === 'date-asc') search.order = [['createdAt', 'ASC']];
       else if (querySort === 'date-desc')
