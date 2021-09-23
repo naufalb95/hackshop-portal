@@ -29,7 +29,12 @@ app.use(express.urlencoded({ express: true }));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
-  res.render('index', { title: 'HackShop Portal'});
+  const data = {
+    bgImg: null
+  }
+  data.bgImg = cloudinary.url('HackShop-Portal/assets/jumbotron_bg.jpg');
+  
+  res.render('index', { title: 'HackShop Portal', data });
 });
 
 app.get('/seller', (req, res) => {

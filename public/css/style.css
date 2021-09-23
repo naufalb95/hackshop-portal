@@ -1,6 +1,75 @@
 body {
   margin: 0;
   padding: 0;
+  color: #171717;
+  background-color: #EDEDED;
+  font-family: 'Raleway', sans-serif;
+}
+
+div {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+  color: #EDEDED;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #EDEDED;
+}
+
+.middle
+{
+    position: relative;
+}
+
+.middle:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #DA0037;
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.middle:hover:before {
+  visibility: visible;
+  transform: scaleX(1);
+}
+
+#footer {
+  background-color: #444444;
+  height: 15vh;
+  color: #EDEDED;
+}
+
+#landing-page-jumbotron {
+  height: 100vh;
+  background-size: cover;
+  color: #EDEDED;
+}
+
+#landing-page-jumbotron-bg {
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#landing-page-about {
+  height: 20vh;
 }
 
 .item-img {
@@ -11,4 +80,47 @@ body {
 
 .item-desc {
   font-weight: bold;
+}
+
+.btn-def {
+  background: white;
+  color: black;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: 2px solid #171717;
+  box-shadow: 0;
+  margin-top: 10px;
+}
+
+#footer ul {
+  color: #EDEDED;
+}
+
+li a:hover {
+  color: black;
+}
+
+#search-bar {
+  width: 500px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: white;
+  padding-top: 3px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+#search-bar-input {
+  height: 24px;
+  border: none;
+  width: 100%;
+}
+
+#search-bar-input:focus {
+  outline: none;
+}
+
+#search-bar-input::placeholder {
+  font-size: 13px;
+  font-style: italic;
 }
