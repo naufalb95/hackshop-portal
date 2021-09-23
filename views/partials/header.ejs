@@ -18,22 +18,21 @@
     <title><%= title %></title>
   </head>
   <body>
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-dark">
       <section class="container">
         <div class="mx-5 d-flex align-items-center justify-content-between w-100">
           <div class="d-inline-block">
             <a class="navbar-brand" href="/">HackShop Portal</a>
           </div>
           <div class="d-inline-block" id="search-bar">
-            <form>
-              <input type="text" id="search-bar-input" placeholder="Search MacBook">
+            <form action="/items">
+              <input type="text" id="search-bar-input" name="search" placeholder="Search MacBook">
             </form>
           </div>
           <div class="d-inline-block">
             <ul>
-              <li class="d-inline-block mx-3">Browse</li>
-              <li class="d-inline-block mx-3">Login</li>
-              <li class="d-inline-block ml-3">Register</li>
+              <li class="d-inline-block mx-3 right"><a href="" class="nav-menu-list">Login</a></li>
+              <li class="d-inline-block ml-3 right"><a href="" class="nav-menu-list">Register</a></li>
             </ul>
           </div>
         </div>

@@ -30,9 +30,15 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
   const data = {
-    bgImg: null
+    bgImg: null,
+    fsImg: null,
+    fbImg: null,
+    igImg: null
   }
   data.bgImg = cloudinary.url('HackShop-Portal/assets/jumbotron_bg.jpg');
+  data.fbImg = cloudinary.url('HackShop-Portal/assets/facebook.svg');
+  data.fsImg = cloudinary.url('HackShop-Portal/assets/friendster.svg');
+  data.igImg = cloudinary.url('HackShop-Portal/assets/instagram.svg');
   
   res.render('index', { title: 'HackShop Portal', data });
 });
