@@ -1,6 +1,7 @@
 const express = require('express');
 
 const SellerController = require('./controllers/sellerController');
+const BuyerController = require('./controllers/buyerController');
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
@@ -91,6 +92,16 @@ app.get('/cart', (req, res) => {
 
   res.render('cart', { item: data, dataAssets });
 })
+
+// app.get('/seller/items/:itemId/detail', SellerController.showEditItem);
+// app.post('/seller/items/:itemId/detail', SellerController.editItem);
+
+// app.get('/items', BuyerController.showAllItem);
+// app.get('/items/:itemid/add-to-cart', BuyerController.addToCart);
+// app.get('/cart', BuyerController.showItemInCart);
+// app.get('/checkout', BuyerController.checkOut);
+// app.get('/items/:itemId', BuyerController.showDetailItem);
+// app.get('/cart/:itemId/delete', BuyerController.deleteFromcart);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

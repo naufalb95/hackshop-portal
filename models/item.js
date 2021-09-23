@@ -18,7 +18,13 @@ module.exports = (sequelize, DataTypes) => {
     isActive: DataTypes.BOOLEAN,
     imageUrl: DataTypes.STRING,
     description: DataTypes.TEXT
-  }, {
+  },
+  {
+    hooks: {
+      beforeCreate: (instance) => {
+        instance.isActive = true
+      }
+    },
     sequelize,
     modelName: 'Item',
   });

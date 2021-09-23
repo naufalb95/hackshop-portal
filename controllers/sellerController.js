@@ -125,6 +125,12 @@ class SellerController {
     .then( data => res.redirect('/seller/items') ) 
     .catch( err => res.send(err) )
   }
+  static showEditItem (req, res) {
+    Item.findOne({ where: req.params.ItemId})
+    .then( data => res.render('./seller/edit', {item: data}))
+    .catch( err => res.send(err) )
+    
+  }
 }
 
 module.exports = SellerController
