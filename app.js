@@ -36,17 +36,7 @@ app.get('/seller', (req, res) => {
   res.render('seller/');
 })
 
-app.get('/seller/items', (req, res) => {
-  const data = {
-    id: 1,
-    name: 'Keyboard',
-    price: 500000,
-    stock: 1,
-    isActive: true,
-    imageUrl: 'tag'
-  }
-  res.render('seller/lists', { title: 'Item Lists', item: data });
-});
+app.get('/seller/items', SellerController.showAll);
 
 app.get('/seller/items/:itemId/edit', (req, res) => {
   const { itemId } = req.params;
@@ -68,19 +58,11 @@ app.post('/seller/items/:itemId/edit', upload.single('myfile'), (req, res) => {
   console.log(req.body);
 });
 
-app.get('/seller/items/:itemId/delete', (req, res) => {
-  const { itemId } = req.params;
+app.get('/seller/items/:itemId/delete', SellerController.deleteItem);
 
-  res.send(`/seller/items/${itemId}/delete`);
-});
+app.get('/seller/add', SellerController.showAddItemForm);
 
-app.get('/seller/add', (req, res) => {
-  res.render('seller/add')
-});
-
-app.post('/seller/add', upload.single('imageUrl'), (req, res) => {
-  res.redirect('/seller/items');
-});
+app.post('/seller/add', upload.single('imageUrl'), SellerController.createItem);
 
 app.get('/seller/items/:itemId/detail', (req, res) => {
   const { itemId } = req.params;
