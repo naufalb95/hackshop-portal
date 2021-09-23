@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 class AccountController {
   static createAccount (req, res) {
     let { username, email, password, status, fullName, location, phoneNumber } = req.body;
+    const errors = [];
     
     User.create({
       username,
@@ -29,11 +30,32 @@ class AccountController {
           res.redirect('/items');
         }
       })
-      .catch(err => res.send(err));
+      .catch(err => {
+        err.errors.forEach((e) => {
+          errors.push(e.message);
+        });
+
+        UserData.create({
+          fullName,
+          location,
+          phoneNumber
+        })
+          .then(() => {
+            res.redirect(`/register?errors=${errors}`);
+          })
+          .catch((err) => {
+            err.errors.forEach((e) => {
+              errors.push(e.message);
+            });
+
+            res.redirect(`/register?errors=${errors}`);
+          });
+      });
   }
 
   static checkLogin(req, res) {
     const { email, password } = req.body;
+    let isValidPassword = null;
 
     User.findOne({
       where: {
@@ -41,7 +63,7 @@ class AccountController {
       }
     })
       .then(data => {
-        const isValidPassword = bcrypt.compareSync(password, data.password);
+        if (password) isValidPassword = bcrypt.compareSync(password, data.password);
         
         if (isValidPassword) {
           req.session.userId = data.id;
@@ -51,9 +73,11 @@ class AccountController {
           } else if (req.session.role === 'buyer') {
             res.redirect('/items');
           }
+        } else {
+          res.redirect('/login');
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => res.send(err));
   }
 }
 

@@ -3,6 +3,7 @@ const Op = require('sequelize').Op;
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const formatDate = require('../helpers/formatDate');
 
 cloudinary.config({
   cloud_name: 'dbktyem00',
@@ -85,7 +86,7 @@ class BuyerController {
           role: req.session.role
         }
 
-        res.render('buyer/detail', { item: data, loginObj, dataAssets });
+        res.render('buyer/detail', { item: data, loginObj, dataAssets, formatDate });
       })
       .catch((err) => res.send(err));
   }

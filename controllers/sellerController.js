@@ -90,9 +90,7 @@ class SellerController {
 
   static postEditItem (req, res) {
     let { name, price, stock, description } = req.body;
-    let imageUrl = req.file.filename
-
-    // console.log({ name, price, stock, imageUrl, description })
+    let imageUrl = req.file.filename;
 
     Item.update({
       name,

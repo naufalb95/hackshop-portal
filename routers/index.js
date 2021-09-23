@@ -17,6 +17,14 @@ const isLogin = (req, res, next) => {
   }
 };
 
+const isBuyer = (req, res, next) => {
+  if (req.session.role === 'buyer') {
+    next();
+  } else {
+    res.redirect('/seller');
+  }
+};
+
 router.get('/', IndexController.getIndex);
 
 router.get('/login', IndexController.getLogin);
@@ -27,9 +35,9 @@ router.get('/register', IndexController.getRegister);
 
 router.get('/profile', isLogin, IndexController.getProfile);
 
-router.get('/cart', isLogin, BuyerController.showCart);
+router.get('/cart', isLogin, isBuyer, BuyerController.showCart);
 
-router.get('/cart/:itemId/delete', isLogin, BuyerController.deleteFromCart);
+router.get('/cart/:itemId/delete', isLogin, isBuyer, BuyerController.deleteFromCart);
 
 router.post('/register', AccountController.createAccount);
 
@@ -39,7 +47,7 @@ router.use('/seller', sellerRoutes);
 
 router.use('/items', itemsRoutes);
 
-router.get('/checkout', BuyerController.checkOut);
+router.get('/checkout', isLogin, isBuyer, BuyerController.checkOut);
 
 router.get('/test', (req, res) => {
   nodemailer.createTestAccount()

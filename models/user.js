@@ -17,19 +17,21 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         notEmpty: { msg: 'Please input username!'}
-      }},
+      }
+    },
     email: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: { msg: 'Please input email!'}
-      }},
+      }
+    },
     password: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: { msg: 'Please input password!'}
-      }},
+      }
+    },
     status: DataTypes.STRING
-     
   }, {
     hooks: {
       beforeCreate: (instance) => {

@@ -25,7 +25,6 @@ const upload = multer({ storage });
 
 
 const isLogin = (req, res, next) => {
-  console.log(req.session)
   if (req.session.userId) {
     next();
   } else {
@@ -33,21 +32,29 @@ const isLogin = (req, res, next) => {
   }
 };
 
-router.get('/', isLogin, SellerController.showAll);
+const isSeller = (req, res, next) => {
+  if (req.session.role === 'seller') {
+    next();
+  } else {
+    res.redirect('/');
+  }
+};
 
-router.get('/items/:itemId/edit', SellerController.showEditItem);
+router.get('/', isLogin, isSeller, SellerController.showAll);
 
-router.post('/items/:itemId/edit', upload.single('imageUrl'), SellerController.postEditItem);
+router.get('/items/:itemId/edit', isLogin, isSeller, SellerController.showEditItem);
 
-router.get('/items/:itemId/delete', SellerController.deleteItem);
+router.post('/items/:itemId/edit', isLogin, isSeller, upload.single('imageUrl'), SellerController.postEditItem);
 
-router.get('/items/:itemId/activate', ItemController.activateStatus);
+router.get('/items/:itemId/delete', isLogin, isSeller, SellerController.deleteItem);
 
-router.get('/items/:itemId/inactivate', ItemController.inactivateStatus);
+router.get('/items/:itemId/activate', isLogin, isSeller, ItemController.activateStatus);
 
-router.get('/add', SellerController.showAddItemForm);
+router.get('/items/:itemId/inactivate', isLogin, isSeller, ItemController.inactivateStatus);
 
-router.post('/add', upload.single('imageUrl'), SellerController.createItem);
+router.get('/add', isLogin, isSeller, SellerController.showAddItemForm);
+
+router.post('/add', isLogin, isSeller, upload.single('imageUrl'), SellerController.createItem);
 
 
 module.exports = router;

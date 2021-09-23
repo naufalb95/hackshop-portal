@@ -25,7 +25,7 @@
             <strong>Seller</strong>
             <p><%= item.User.username %></p>
             <p><%= item.User.address %></p>
-            Posted on <%= item.createdAt %>  
+            Posted on <%= formatDate(item.createdAt) %>  
           </div>
           <div id="item-detail-desc">
             <%= item.description %>  

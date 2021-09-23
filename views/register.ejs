@@ -8,30 +8,30 @@
           <div class="form-group">
             <label for="username">Username</label>
             <input type="text" class="form-control" name="username" id="username">
-            <% if (errors.findIndex((error) => error.message === 'Please input username!') !== -1) { %>
-              <div class="alert alert-danger" role="alert">
+            <% if ((errors.findIndex((error) => error === 'Please input username!') !== -1)) { %>
+              <p class="mt-1 ml-1 text-danger">
                 Please input username!
-              </div>
+              </p>
             <% } %>
           </div>
 
           <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" name="email" id="email">
-            <% if (errors.findIndex((error) => error.message === 'Please input email!') !== -1) { %>
-              <div class="alert alert-danger" role="alert">
+            <% if ((errors.findIndex((error) => error === 'Please input email!') !== -1)) { %>
+              <p class="mt-1 ml-1 text-danger">
                 Please input email!
-              </div>
+              </p>
             <% } %>
           </div>
 
           <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" name="password" id="password">
-            <% if (errors.findIndex((error) => error.message === 'Please input password!') !== -1) { %>
-              <div class="alert alert-danger" role="alert">
+            <% if ((errors.findIndex((error) => error === 'Please input password!') !== -1)) { %>
+              <p class="mt-1 ml-1 text-danger">
                 Please input password
-              </div>
+              </p>
             <% } %>
           </div>
 
@@ -41,40 +41,40 @@
               <option value="buyer">Buyer</option>
               <option value="seller">Seller</option>
             </select>
-            <% if (errors.findIndex((error) => error.message === 'Please select role!') !== -1) { %>
-              <div class="alert alert-danger" role="alert">
+            <% if ((errors.findIndex((error) => error === 'Please select role!') !== -1)) { %>
+              <p class="mt-1 ml-1 text-danger">
                 Please select role!
-              </div>
+              </p>
             <% } %>
           </div>
 
           <div class="form-group">
             <label for="fullName">Full Name</label>
             <input type="text" class="form-control" name="fullName" id="fullName">
-            <% if (errors.findIndex((error) => error.message === 'Please input your full name!') !== -1) { %>
-              <div class="alert alert-danger" role="alert">
+            <% if ((errors.findIndex((error) => error === 'Please input your full name!') !== -1)) { %>
+              <p class="mt-1 ml-1 text-danger">
                 Please input your full name!
-              </div>
+              </p>
             <% } %>
           </div>
 
           <div class="form-group">
             <label for="location">Location</label>
             <input type="text" class="form-control" name="location" id="location">
-            <% if (errors.findIndex((error) => error.message === 'Please input your location!') !== -1) { %>
-              <div class="alert alert-danger" role="alert">
+            <% if ((errors.findIndex((error) => error === 'Please input your location!') !== -1)) { %>
+              <p class="mt-1 ml-1 text-danger">
                 Please input your location!
-              </div>
+              </p>
             <% } %>
           </div>
 
           <div class="form-group">
             <label for="phoneNumber">Phone Number</label>
             <input type="text" class="form-control" name="phoneNumber" id="phoneNumber">
-            <% if (errors.findIndex((error) => error.message === 'Please input your phone number!') !== -1) { %>
-              <div class="alert alert-danger" role="alert">
+            <% if ((errors.findIndex((error) => error === 'Please input your phone number!') !== -1)) { %>
+              <p class="mt-1 ml-1 text-danger">
                 Please input your phone number!
-              </div>
+              </p>
             <% } %>
           </div>
 

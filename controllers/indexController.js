@@ -56,12 +56,16 @@ class IndexController {
   }
 
   static getRegister(req, res) {
+    const { errors } = req.query;
     const loginObj = {
       userId: req.session.userId,
       role: req.session.role
-    }
+    };
 
-    res.render('register', { errors: [], loginObj, dataAssets });
+    let errorLists = [];
+    if (errors) errorLists = errors.split(',');
+
+    res.render('register', { errors: errorLists, loginObj, dataAssets });
   }
 
   static getProfile(req, res) {
