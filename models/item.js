@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     get formatPrice() {
-      return;
+      return this.price.toLocaleString("id-ID", {style: "currency", currency:"IDR"})
     }
   }
 
