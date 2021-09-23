@@ -1,5 +1,7 @@
-const { User, UserData } = require('../models/index');
+const { User, UserData, Verification } = require('../models/index');
 const bcrypt = require('bcryptjs');
+const { v4: uuidv4 } = require('uuid');
+const nodemailer = require("nodemailer");
 
 class AccountController {
   static createAccount (req, res) {
@@ -16,11 +18,45 @@ class AccountController {
         req.session.userId = data.id;
         req.session.role = status;
 
+        const verificiationNumber = uuidv4();
+
+        let transporter = nodemailer.createTransport({
+          host: "smtp.gmail.com",
+          port: 465,
+          secure: true,
+          auth: {
+            user: "hackshop.portal@gmail.com",
+            pass: "zxcmnbcv"
+          },
+          logger: true,
+          transactionLog: true
+        });
+      
+        transporter.sendMail({
+          from: '"HackShop Portal" <hackshop.portal@gmail.com>',
+          to: `${email}`,
+          subject: "Hello, just one step more to complete your registration at HackShop Portal",
+          text: "You should enable HTML on this",
+          html: `<p>Hi ${username}, click <a href="http://localhost:3000/verificate?id=${ verificiationNumber }">here</a> to complete your registration at HackShop Portal.</p>` // ! jangan lupa dirubah ke https pas push ke heroku!
+          })
+        .then((info) => {
+          console.log(info);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+        return Verification.create({
+          UserId: data.id,
+          verification: verificiationNumber
+        });
+      })
+      .then((data) => {
         return UserData.create({
           fullName,
           location,
           phoneNumber,
-          UserId: data.id
+          UserId: data.UserId
         });
       })
       .then(() => {
@@ -31,6 +67,7 @@ class AccountController {
         }
       })
       .catch(err => {
+        console.log(err);
         err.errors.forEach((e) => {
           errors.push(e.message);
         });

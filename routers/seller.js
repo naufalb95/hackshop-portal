@@ -40,21 +40,35 @@ const isSeller = (req, res, next) => {
   }
 };
 
-router.get('/', isLogin, isSeller, SellerController.showAll);
+const isVerificated = (req, res, next) => {
+  User.findByPk(req.session.userId)
+    .then((data) => {
+      if (data.isVerificated) {
+        next();
+      } else {
+        res.redirect('/');
+      }
+    })
+    .catch((err) => {
+      res.send(err);
+    })
+};
 
-router.get('/items/:itemId/edit', isLogin, isSeller, SellerController.showEditItem);
+router.get('/', isLogin, isVerificated, isSeller, SellerController.showAll);
 
-router.post('/items/:itemId/edit', isLogin, isSeller, upload.single('imageUrl'), SellerController.postEditItem);
+router.get('/items/:itemId/edit', isLogin, isVerificated, isSeller, SellerController.showEditItem);
 
-router.get('/items/:itemId/delete', isLogin, isSeller, SellerController.deleteItem);
+router.post('/items/:itemId/edit', isLogin, isVerificated, isSeller, upload.single('imageUrl'), SellerController.postEditItem);
 
-router.get('/items/:itemId/activate', isLogin, isSeller, ItemController.activateStatus);
+router.get('/items/:itemId/delete', isLogin, isVerificated, isSeller, SellerController.deleteItem);
 
-router.get('/items/:itemId/inactivate', isLogin, isSeller, ItemController.inactivateStatus);
+router.get('/items/:itemId/activate', isLogin, isVerificated, isSeller, ItemController.activateStatus);
 
-router.get('/add', isLogin, isSeller, SellerController.showAddItemForm);
+router.get('/items/:itemId/inactivate', isLogin, isVerificated, isSeller, ItemController.inactivateStatus);
 
-router.post('/add', isLogin, isSeller, upload.single('imageUrl'), SellerController.createItem);
+router.get('/add', isLogin, isVerificated, isSeller, SellerController.showAddItemForm);
+
+router.post('/add', isLogin, isVerificated, isSeller, upload.single('imageUrl'), SellerController.createItem);
 
 
 module.exports = router;

@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require("nodemailer");
 
+const { Verification, User } = require('../models');
+
 const BuyerController = require('../controllers/buyerController');
 const AccountController = require('../controllers/accountController');
 const IndexController = require('../controllers/indexController');
@@ -25,6 +27,20 @@ const isBuyer = (req, res, next) => {
   }
 };
 
+const isVerificated = (req, res, next) => {
+  User.findByPk(req.session.userId)
+    .then((data) => {
+      if (data.isVerificated) {
+        next();
+      } else {
+        res.redirect('/');
+      }
+    })
+    .catch((err) => {
+      res.send(err);
+    })
+}
+
 router.get('/', IndexController.getIndex);
 
 router.get('/login', IndexController.getLogin);
@@ -33,11 +49,11 @@ router.get('/logout', IndexController.getLogout);
 
 router.get('/register', IndexController.getRegister);
 
-router.get('/profile', isLogin, IndexController.getProfile);
+router.get('/profile', isLogin, isVerificated, IndexController.getProfile);
 
-router.get('/cart', isLogin, isBuyer, BuyerController.showCart);
+router.get('/cart', isLogin, isVerificated, isBuyer, BuyerController.showCart);
 
-router.get('/cart/:itemId/delete', isLogin, isBuyer, BuyerController.deleteFromCart);
+router.get('/cart/:itemId/delete', isLogin, isVerificated, isBuyer, BuyerController.deleteFromCart);
 
 router.post('/register', AccountController.createAccount);
 
@@ -47,35 +63,47 @@ router.use('/seller', sellerRoutes);
 
 router.use('/items', itemsRoutes);
 
-router.get('/checkout', isLogin, isBuyer, BuyerController.checkOut);
+router.get('/checkout', isLogin, isVerificated, isBuyer, BuyerController.checkOut);
 
-router.get('/test', (req, res) => {
-  let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      user: "hackshop.portal@gmail.com",
-      pass: "zxcmnbcv"
+router.get('/verificate', (req, res) => {
+  const { id } = req.query;
+
+  Verification.findOne({
+    where: {
+      verification: id
     },
-    logger: true,
-    transactionLog: true
-  });
-
-  transporter.sendMail({
-    from: '"Naufal" <hackshop.portal@gmail.com>',
-    to: "982654ant@gmail.com",
-    subject: "Hello, just one step more to complete your registration at HackShop Portal",
-    text: "You should enable HTML on this",
-    html: `<p>Hi naufalb, click <a href="http://localhost:3000/verification=${ 'uuid' }">here</a> to complete your registration at HackShop Portal.</p>` // ! jangan lupa dirubah ke https pas push ke heroku!
-    })
-  .then((info) => {
-    console.log(info);
+    include: [ User ]
   })
-  .catch((err) => {
-    console.log(err);
-  });
+    .then((data) => {
+      req.session.userId = data.User.id;
+      req.session.role = data.User.status;
+      
+      return User.update({
+        isVerificated: true
+      }, {
+        where: {
+          id: data.UserId
+        }
+      })
+    })
+    .then(() => {
+      console.log('masuk destroy')
+      return Verification.destroy({
+        where: {
+          verification: id
+        }
+      });
+    })
+    .then(() => {
+      if (req.session.role === 'buyer') {
+        res.redirect('/items');
+      } else if (req.session.role === 'seller') {
+        res.redirect('/seller');
+      } 
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 });
-
 
 module.exports = router;
