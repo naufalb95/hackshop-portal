@@ -73,10 +73,11 @@ app.get('/seller/items/:itemId/detail', (req, res) => {
   }
 });
 
-// app.get('/buyer', BuyerController._);
-// app.get('/buyer/:buyerid/cart', BuyerController._);
-// app.get('/buyer/:cartid/checkout', BuyerController._);
-// app.get('/buyer/:buyerid/editprofile', BuyerController._);
+app.get('/items', BuyerController.showAllItem);
+app.get('/items/:itemid/add-to-cart', BuyerController.addToCart);
+// app.get('/cart', BuyerController._);
+// app.get('/checkout', BuyerController._);
+app.get('/items/:itemId', BuyerController.showDetailItem);
 
 
 app.listen(port, () => {
