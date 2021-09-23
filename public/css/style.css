@@ -306,3 +306,7 @@ li a:hover {
 #login {
   min-height: calc(100vh - 21vh);
 }
+
+#register {
+  min-height: calc(100vh - 21vh);
+}

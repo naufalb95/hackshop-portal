@@ -71,6 +71,10 @@ app.get('/login', (req, res) => {
   res.render('login', { dataAssets });
 })
 
+app.get('/register', (req, res) => {
+  res.render('register', { dataAssets });
+})
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
