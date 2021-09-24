@@ -250,7 +250,6 @@ class BuyerController {
         res.redirect('/items');
       })
       .catch((err) => {
-        console.log(err);
         res.send(err);
       });
   }

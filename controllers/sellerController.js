@@ -2,8 +2,6 @@ const cloudinary = require('cloudinary').v2;
 
 const { Item } = require('../models/index');
 
-const showDateItemPost = require('../helpers/formatDate');
-
 cloudinary.config({
   cloud_name: "dbktyem00",
   api_key: "424256335419546",
@@ -37,9 +35,9 @@ class SellerController {
           role: req.session.role
         };
 
-      res.render('./seller', { items: data, loginObj, dataAssets });
-    })
-    .catch( err => res.send(err) )
+        res.render('./seller', { items: data, loginObj, dataAssets });
+      })
+      .catch(err => res.send(err));
   }
 
   static deleteItem(req, res) {
@@ -56,7 +54,7 @@ class SellerController {
         });
       })
       .then(() => {
-        res.redirect('/seller')
+        res.redirect('/seller');
       })
       .catch( err => res.send(err) )
   }
@@ -67,13 +65,14 @@ class SellerController {
       role: req.session.role
     };
 
-    res.render('./seller/add', { loginObj, dataAssets })
+    res.render('./seller/add', { loginObj, dataAssets });
   }
 
   static createItem (req, res) {
     const { name, price, stock, description } = req.body;
     const { userId } = req.session;
-    const imageUrl = req.file.filename;
+    let imageUrl = null;
+    if (req.file) imageUrl = req.file.filename;
 
     Item.create({
       name,
@@ -83,15 +82,17 @@ class SellerController {
       UserId: userId,
       description
     })
-    .then( () => res.redirect('/seller') )
-    .catch( err => res.send(err) )
+      .then(() => res.redirect('/seller'))
+      .catch(err => res.send(err));
 
   }
 
   static postEditItem (req, res) {
-    let { name, price, stock, description } = req.body;
     const { itemId } = req.params;
-    let imageUrl = req.file.filename;
+    let { name, price, stock, description } = req.body;
+    let imageUrl = null;
+
+    if (req.file) imageUrl = req.file.filename;
 
     Item.findByPk(itemId)
       .then((data) => {
@@ -112,7 +113,7 @@ class SellerController {
         });
       })
       .then( data => {
-        res.redirect('/seller') 
+        res.redirect('/seller');
       }) 
       .catch( err => res.send(err) )
   }
@@ -125,9 +126,10 @@ class SellerController {
           role: req.session.role
         };
 
-        res.render('./seller/edit', { item: data, loginObj, dataAssets })})
-    .catch( err => res.send(err) )
+        res.render('./seller/edit', { item: data, loginObj, dataAssets })
+      })
+      .catch(err => res.send(err));
   }
 }
 
-module.exports = SellerController
+module.exports = SellerController;

@@ -2,8 +2,6 @@ const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-const { UserData } = require('../models');
-
 cloudinary.config({
   cloud_name: 'dbktyem00',
   api_key: '424256335419546',
@@ -40,58 +38,6 @@ class IndexController {
     };
 
     res.render('index', { title: 'HackShop Portal', loginObj, dataAssets });
-  }
-
-  static getLogin(req, res) {
-    const loginObj = {
-      userId: req.session.userId,
-      role: req.session.role
-    };
-  
-    res.render('login', { errors: [], loginObj, dataAssets });
-  }
-
-  static getLogout(req, res) {
-    req.session.destroy();
-  
-    res.redirect('/');
-  }
-
-  static getRegister(req, res) {
-    const { errors } = req.query;
-    const loginObj = {
-      userId: req.session.userId,
-      role: req.session.role
-    };
-
-    let errorLists = [];
-    if (errors) errorLists = errors.split(',');
-
-    res.render('register', { errors: errorLists, loginObj, dataAssets });
-  }
-
-  static getProfile(req, res) {
-    const { errors } = req.query;
-    let errorLists = [];
-    const loginObj = {
-      userId: req.session.userId,
-      role: req.session.role
-    }
-    
-    if (errors) errorLists = errors.split(',');
-
-    UserData.findOne({
-      where: {
-        UserId: req.session.userId
-      }
-    })
-      .then((data) => {
-        res.render('edit_profile', { errors: errorLists, loginObj, item: data, dataAssets });
-      })
-      .catch((err) => {
-        res.send(err);
-      })
-    
   }
 }
 

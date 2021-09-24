@@ -1,8 +1,4 @@
 const express = require('express');
-
-// const SellerController = require('./controllers/sellerController');
-const BuyerController = require('./controllers/buyerController');
-// const AccountController = require('./controllers/accountController');
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');

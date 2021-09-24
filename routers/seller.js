@@ -4,7 +4,10 @@ const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-const { User } = require('../models')
+const isLogin = require('../middlewares/isLogin');
+const isSeller = require('../middlewares/isSeller');
+const isVerificated = require('../middlewares/isVerificated');
+
 const SellerController = require('../controllers/sellerController');
 const ItemController = require('../controllers/itemController');
 
@@ -24,37 +27,6 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage });
 
-
-const isLogin = (req, res, next) => {
-  if (req.session.userId) {
-    next();
-  } else {
-    res.redirect('/login');
-  }
-};
-
-const isSeller = (req, res, next) => {
-  if (req.session.role === 'seller') {
-    next();
-  } else {
-    res.redirect('/');
-  }
-};
-
-const isVerificated = (req, res, next) => {
-  User.findByPk(req.session.userId)
-    .then((data) => {
-      if (data.isVerificated) {
-        next();
-      } else {
-        res.redirect('/');
-      }
-    })
-    .catch((err) => {
-      res.send(err);
-    })
-};
-
 router.get('/', isLogin, isVerificated, isSeller, SellerController.showAll);
 
 router.get('/items/:itemId/edit', isLogin, isVerificated, isSeller, SellerController.showEditItem);
@@ -70,6 +42,5 @@ router.get('/items/:itemId/inactivate', isLogin, isVerificated, isSeller, ItemCo
 router.get('/add', isLogin, isVerificated, isSeller, SellerController.showAddItemForm);
 
 router.post('/add', isLogin, isVerificated, isSeller, upload.single('imageUrl'), SellerController.createItem);
-
 
 module.exports = router;
