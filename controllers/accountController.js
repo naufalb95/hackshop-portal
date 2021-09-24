@@ -69,7 +69,7 @@ class AccountController {
           to: `${email}`,
           subject: "Hello, just one step more to complete your registration at HackShop Portal",
           text: "You should enable HTML on this",
-          html: `<p>Hi ${username}, click <a href="https://localhost:3000/verificate?id=${ verificiationNumber }">here</a> to complete your registration at HackShop Portal.</p>` // ! jangan lupa dirubah ke https pas push ke heroku!
+          html: `<p>Hi ${username}, click <a href="https://hackshop-portal.herokuapp.com/verificate?id=${ verificiationNumber }">here</a> to complete your registration at HackShop Portal.</p>`
           })
         .then((info) => {
           console.log(info);

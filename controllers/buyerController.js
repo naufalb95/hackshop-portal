@@ -223,7 +223,7 @@ class BuyerController {
               <p>${data.phoneNumber}</p>
               <p>${data.location}</p>
               </div>
-              ` // ! jangan lupa dirubah ke https pas push ke heroku!
+              `
               })
             .then((info) => {
               console.log(info);
