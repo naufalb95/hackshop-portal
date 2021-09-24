@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   color: #171717;
-  background-color: #EDEDED;
+  background-color: #ededed;
   font-family: 'Raleway', sans-serif;
 }
 
@@ -26,19 +26,18 @@ a:hover {
   text-decoration: none;
 }
 
-.middle
-{
-    position: relative;
+.middle {
+  position: relative;
 }
 
 .middle:before {
-  content: "";
+  content: '';
   position: absolute;
   width: 100%;
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: #DA0037;
+  background-color: #da0037;
   visibility: hidden;
   transform: scaleX(0);
   transition: all 0.3s ease-in-out;
@@ -49,19 +48,18 @@ a:hover {
   transform: scaleX(1);
 }
 
-.right
-{
-    position: relative;
+.right {
+  position: relative;
 }
 
 .right:before {
-  content: "";
+  content: '';
   position: absolute;
   width: 0;
   height: 2px;
   bottom: 0;
   right: 0;
-  background-color: #DA0037;
+  background-color: #da0037;
   visibility: hidden;
   transition: all 0.3s ease-in-out;
 }
@@ -71,19 +69,18 @@ a:hover {
   width: 100%;
 }
 
-.left
-{
-    position: relative;
+.left {
+  position: relative;
 }
 
 .left:before {
-  content: "";
+  content: '';
   position: absolute;
   width: 0;
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: #DA0037;
+  background-color: #da0037;
   visibility: hidden;
   transition: all 0.3s ease-in-out;
 }
@@ -96,13 +93,13 @@ a:hover {
 #footer {
   background-color: #444444;
   height: 15vh;
-  color: #EDEDED;
+  color: #ededed;
 }
 
 #landing-page-jumbotron {
   height: 100vh;
   background-size: cover;
-  color: #EDEDED;
+  color: #ededed;
   margin-top: -56px;
 }
 
@@ -137,7 +134,7 @@ a:hover {
 }
 
 #footer ul {
-  color: #EDEDED;
+  color: #ededed;
 }
 
 li a:hover {
@@ -187,20 +184,22 @@ li a:hover {
 }
 
 .footer-list {
-  color: #EDEDED;
+  color: #ededed;
 }
 
 .footer-list:hover {
-  color: #EDEDED;
+  color: #ededed;
 }
 
 .footer-icon {
   margin: 0 2px;
-  filter: invert(99%) sepia(4%) saturate(315%) hue-rotate(256deg) brightness(112%) contrast(86%);
+  filter: invert(99%) sepia(4%) saturate(315%) hue-rotate(256deg)
+    brightness(112%) contrast(86%);
 }
 
 .footer-icon:hover {
-  filter: invert(52%) sepia(0%) saturate(5018%) hue-rotate(216deg) brightness(96%) contrast(83%);
+  filter: invert(52%) sepia(0%) saturate(5018%) hue-rotate(216deg)
+    brightness(96%) contrast(83%);
 }
 
 #seller-main-content {
@@ -220,7 +219,7 @@ li a:hover {
 }
 
 .nav-text-dark {
-  color: #EDEDED;
+  color: #ededed;
 }
 
 .btn-seller-action {
@@ -232,7 +231,7 @@ li a:hover {
 }
 
 #seller-item-content {
-  border: 1px solid #A9A9A9;
+  border: 1px solid #a9a9a9;
   border-radius: 15px;
 }
 
@@ -246,10 +245,10 @@ li a:hover {
   width: 225px;
   border-radius: 5px;
   overflow: hidden;
-  box-shadow: 10px 12px 19px -7px rgba(0,0,0,0.1);
-  -webkit-box-shadow: 10px 12px 19px -7px rgba(0,0,0,0.1);
-  -moz-box-shadow: 10px 12px 19px -7px rgba(0,0,0,0.3);
-  background-color: #FFF;
+  box-shadow: 10px 12px 19px -7px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 10px 12px 19px -7px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 10px 12px 19px -7px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
 }
 
 .card-manual-img {

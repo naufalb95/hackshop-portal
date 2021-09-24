@@ -6,46 +6,49 @@ const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      User.hasOne(models.UserData)
-      User.hasMany(models.Item)
-      User.belongsToMany(models.Item, {through: 'Carts'})
-      User.hasOne(models.Verification)
+      User.hasOne(models.UserData);
+      User.hasMany(models.Item);
+      User.belongsToMany(models.Item, { through: 'Carts' });
+      User.hasOne(models.Verification);
     }
   }
 
-  User.init({
-    username: {
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: { msg: 'Please input username!'}
-      }
+  User.init(
+    {
+      username: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: { msg: 'Please input username!' }
+        }
+      },
+      email: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: { msg: 'Please input email!' }
+        }
+      },
+      password: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: { msg: 'Please input password!' }
+        }
+      },
+      status: DataTypes.STRING,
+      isVerificated: DataTypes.BOOLEAN
     },
-    email: {
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: { msg: 'Please input email!'}
-      }
-    },
-    password: {
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: { msg: 'Please input password!'}
-      }
-    },
-    status: DataTypes.STRING,
-    isVerificated: DataTypes.BOOLEAN,
-  }, {
-    hooks: {
-      beforeCreate: (instance) => {
-        instance.isVerificated = false
-        const salt = bcrypt.genSaltSync(10);
-        const hashedPassword = bcrypt.hashSync(instance.password, salt);
-        instance.password = hashedPassword;
-      }
-    },
-    sequelize,
-    modelName: 'User',
-  })
-  
+    {
+      hooks: {
+        beforeCreate: (instance) => {
+          instance.isVerificated = false;
+          const salt = bcrypt.genSaltSync(10);
+          const hashedPassword = bcrypt.hashSync(instance.password, salt);
+          instance.password = hashedPassword;
+        }
+      },
+      sequelize,
+      modelName: 'User'
+    }
+  );
+
   return User;
-}
+};

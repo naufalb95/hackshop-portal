@@ -4,7 +4,7 @@ const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const formatDate = require('../helpers/formatDate');
-const nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer');
 
 cloudinary.config({
   cloud_name: 'dbktyem00',
@@ -38,13 +38,13 @@ class BuyerController {
   static showAllItem(req, res) {
     let querySort = req.query.sort;
 
-    let search = {where: {}, order: [['createdAt', 'DESC']]}
-    let keyword = req.query.search
+    let search = { where: {}, order: [['createdAt', 'DESC']] };
+    let keyword = req.query.search;
 
     let querySearch = req.query.search;
 
     if (keyword) {
-      search.where.name = {[Op.iLike] : `%${keyword}%`}
+      search.where.name = { [Op.iLike]: `%${keyword}%` };
     }
     if (querySort) {
       if (querySort === 'date-asc') search.order = [['createdAt', 'ASC']];
@@ -60,14 +60,20 @@ class BuyerController {
           el.imageUrl = cloudinary.url(el.imageUrl);
         }); // instance method
 
-        data = Item.filterIsActive(data)
-        
+        data = Item.filterIsActive(data);
+
         const loginObj = {
           userId: req.session.userId,
           role: req.session.role
-        }
+        };
 
-        res.render('buyer/', { items: data, querySort: querySort, querySearch: querySearch, loginObj, dataAssets });
+        res.render('buyer/', {
+          items: data,
+          querySort: querySort,
+          querySearch: querySearch,
+          loginObj,
+          dataAssets
+        });
       })
       .catch((err) => res.send(err));
   }
@@ -77,17 +83,22 @@ class BuyerController {
       where: {
         id: req.params.itemId
       },
-      include: [ User ]
+      include: [User]
     })
       .then((data) => {
         data.imageUrl = cloudinary.url(data.imageUrl);
-        
+
         const loginObj = {
           userId: req.session.userId,
           role: req.session.role
-        }
+        };
 
-        res.render('buyer/detail', { item: data, loginObj, dataAssets, formatDate });
+        res.render('buyer/detail', {
+          item: data,
+          loginObj,
+          dataAssets,
+          formatDate
+        });
       })
       .catch((err) => res.send(err));
   }
@@ -99,7 +110,9 @@ class BuyerController {
       UserId: userId, // must be replace with session
       ItemId: req.params.itemId
     })
-      .then(() => {res.redirect('/items')})
+      .then(() => {
+        res.redirect('/items');
+      })
       .catch((err) => res.send(err));
   }
 
@@ -111,7 +124,7 @@ class BuyerController {
       where: { ItemId: itemId, UserId: userId }
     })
       .then(() => {
-        res.redirect('/cart')
+        res.redirect('/cart');
       })
       .catch((err) => res.send(err));
   }
@@ -123,14 +136,14 @@ class BuyerController {
       include: [Item]
     })
       .then((data) => {
-        let filtered = Item.filterIsActive(data.Items)
+        let filtered = Item.filterIsActive(data.Items);
 
         const loginObj = {
           userId: req.session.userId,
           role: req.session.role
-        }
+        };
 
-        res.render('cart', { items: filtered, loginObj, dataAssets })
+        res.render('cart', { items: filtered, loginObj, dataAssets });
       })
       .catch((err) => {
         res.render(err);
@@ -148,20 +161,20 @@ class BuyerController {
         UserId: userId
       }
     })
-      .then ((data) => {
+      .then((data) => {
         data.forEach((el) => {
-          itemKey.push(el.ItemId)
-        })
+          itemKey.push(el.ItemId);
+        });
         return Item.findAll({
           where: {
             id: itemKey,
             isActive: true,
-            stock: {[Op.gt]: 0}
+            stock: { [Op.gt]: 0 }
           }
-        })
+        });
       })
       .then((data) => {
-        let temp = []
+        let temp = [];
         data.forEach((el) => {
           itemsName.push(el.name);
           itemsPrice.push(el.price);
@@ -175,37 +188,38 @@ class BuyerController {
             UserId: userId
           },
           include: [User]
-        })
+        });
       })
-          .then((data) => {
-            let transporter = nodemailer.createTransport({
-              host: "smtp.gmail.com",
-              port: 465,
-              secure: true,
-              auth: {
-                user: "hackshop.portal@gmail.com",
-                pass: "zxcmnbcv"
-              },
-              logger: true,
-              transactionLog: true
-            });
+      .then((data) => {
+        let transporter = nodemailer.createTransport({
+          host: 'smtp.gmail.com',
+          port: 465,
+          secure: true,
+          auth: {
+            user: 'hackshop.portal@gmail.com',
+            pass: 'zxcmnbcv'
+          },
+          logger: true,
+          transactionLog: true
+        });
 
-            let items = ``;
+        let items = ``;
 
-            for (let i = 0; i < itemsName.length; i++) {
-              items += `
+        for (let i = 0; i < itemsName.length; i++) {
+          items += `
               <tr>
                 <td>${itemsName[i]}</td>
                 <td>${itemsPrice[i]}</td>
               </tr>`;
-            }
-          
-            transporter.sendMail({
-              from: '"HackShop Portal" <hackshop.portal@gmail.com>',
-              to: `${data.User.email}`,
-              subject: "Hello, your order has been received",
-              text: "You should enable HTML on this",
-              html: `<p>Hi ${data.User.username}, we have received your order. Here is the summary</p>
+        }
+
+        transporter
+          .sendMail({
+            from: '"HackShop Portal" <hackshop.portal@gmail.com>',
+            to: `${data.User.email}`,
+            subject: 'Hello, your order has been received',
+            text: 'You should enable HTML on this',
+            html: `<p>Hi ${data.User.username}, we have received your order. Here is the summary</p>
               <table border="1">
                 <thead>
                   <tr>
@@ -224,19 +238,19 @@ class BuyerController {
               <p>${data.location}</p>
               </div>
               `
-              })
-            .then((info) => {
-              console.log(info);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+          })
+          .then((info) => {
+            console.log(info);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
 
         return Item.decrement('stock', {
           where: {
             id: itemKey
           }
-        })
+        });
       })
       .then(() => {
         return Cart.destroy({
@@ -244,7 +258,7 @@ class BuyerController {
             UserId: userId,
             ItemId: itemKey
           }
-        })
+        });
       })
       .then(() => {
         res.redirect('/items');

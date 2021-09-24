@@ -11,7 +11,7 @@ const isVerificated = (req, res, next) => {
     })
     .catch((err) => {
       res.send(err);
-    })
+    });
 };
 
 module.exports = isVerificated;

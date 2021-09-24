@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  up:  (queryInterface, Sequelize) => {
+  up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn('UserData', 'UserId', {
       type: Sequelize.INTEGER,
       references: {
@@ -9,13 +9,13 @@ module.exports = {
           tableName: 'Users'
         },
         key: 'id'
-      }, 
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
-    })
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE'
+    });
   },
 
-  down:  (queryInterface, Sequelize) => {
-    return queryInterface.removeColumn('UserData', 'UserId')
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.removeColumn('UserData', 'UserId');
   }
 };

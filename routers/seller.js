@@ -29,18 +29,62 @@ const upload = multer({ storage });
 
 router.get('/', isLogin, isVerificated, isSeller, SellerController.showAll);
 
-router.get('/items/:itemId/edit', isLogin, isVerificated, isSeller, SellerController.showEditItem);
+router.get(
+  '/items/:itemId/edit',
+  isLogin,
+  isVerificated,
+  isSeller,
+  SellerController.showEditItem
+);
 
-router.post('/items/:itemId/edit', isLogin, isVerificated, isSeller, upload.single('imageUrl'), SellerController.postEditItem);
+router.post(
+  '/items/:itemId/edit',
+  isLogin,
+  isVerificated,
+  isSeller,
+  upload.single('imageUrl'),
+  SellerController.postEditItem
+);
 
-router.get('/items/:itemId/delete', isLogin, isVerificated, isSeller, SellerController.deleteItem);
+router.get(
+  '/items/:itemId/delete',
+  isLogin,
+  isVerificated,
+  isSeller,
+  SellerController.deleteItem
+);
 
-router.get('/items/:itemId/activate', isLogin, isVerificated, isSeller, ItemController.activateStatus);
+router.get(
+  '/items/:itemId/activate',
+  isLogin,
+  isVerificated,
+  isSeller,
+  ItemController.activateStatus
+);
 
-router.get('/items/:itemId/inactivate', isLogin, isVerificated, isSeller, ItemController.inactivateStatus);
+router.get(
+  '/items/:itemId/inactivate',
+  isLogin,
+  isVerificated,
+  isSeller,
+  ItemController.inactivateStatus
+);
 
-router.get('/add', isLogin, isVerificated, isSeller, SellerController.showAddItemForm);
+router.get(
+  '/add',
+  isLogin,
+  isVerificated,
+  isSeller,
+  SellerController.showAddItemForm
+);
 
-router.post('/add', isLogin, isVerificated, isSeller, upload.single('imageUrl'), SellerController.createItem);
+router.post(
+  '/add',
+  isLogin,
+  isVerificated,
+  isSeller,
+  upload.single('imageUrl'),
+  SellerController.createItem
+);
 
 module.exports = router;

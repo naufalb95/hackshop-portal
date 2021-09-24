@@ -9,41 +9,46 @@ module.exports = (sequelize, DataTypes) => {
       Item.belongsToMany(models.User, { through: 'Carts' });
     }
 
-    static filterIsActive (data) {
-      let arr = []
-      data.forEach( element => {
-        if( element.stock < 1 ) {
-          element.isActive = false
+    static filterIsActive(data) {
+      let arr = [];
+      data.forEach((element) => {
+        if (element.stock < 1) {
+          element.isActive = false;
         }
-        if( element.isActive === true ) {
-          arr.push(element)
+        if (element.isActive === true) {
+          arr.push(element);
         }
-      })
-      return arr
+      });
+      return arr;
     }
     get formatPrice() {
-      return this.price.toLocaleString("id-ID", {style: "currency", currency:"IDR"})
+      return this.price.toLocaleString('id-ID', {
+        style: 'currency',
+        currency: 'IDR'
+      });
     }
   }
 
-  Item.init({
-    name: DataTypes.STRING,
-    price: DataTypes.INTEGER,
-    stock: DataTypes.INTEGER,
-    isActive: DataTypes.BOOLEAN,
-    imageUrl: DataTypes.STRING,
-    description: DataTypes.TEXT,
-    UserId: DataTypes.INTEGER
-  },
-  {
-    hooks: {
-      beforeCreate: (instance) => {
-        instance.isActive = true;
-      }
+  Item.init(
+    {
+      name: DataTypes.STRING,
+      price: DataTypes.INTEGER,
+      stock: DataTypes.INTEGER,
+      isActive: DataTypes.BOOLEAN,
+      imageUrl: DataTypes.STRING,
+      description: DataTypes.TEXT,
+      UserId: DataTypes.INTEGER
     },
-    sequelize,
-    modelName: 'Item',
-  })
-  
+    {
+      hooks: {
+        beforeCreate: (instance) => {
+          instance.isActive = true;
+        }
+      },
+      sequelize,
+      modelName: 'Item'
+    }
+  );
+
   return Item;
-}
+};

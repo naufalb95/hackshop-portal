@@ -1,7 +1,7 @@
 const { User, UserData, Verification } = require('../models/index');
 const bcrypt = require('bcryptjs');
 const { v4: uuidv4 } = require('uuid');
-const nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer');
 
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer');
@@ -36,47 +36,50 @@ dataAssets.fsImg = cloudinary.url('HackShop-Portal/assets/friendster.svg');
 dataAssets.igImg = cloudinary.url('HackShop-Portal/assets/instagram.svg');
 
 class AccountController {
-  static createAccount (req, res) {
-    let { username, email, password, status, fullName, location, phoneNumber } = req.body;
+  static createAccount(req, res) {
+    let { username, email, password, status, fullName, location, phoneNumber } =
+      req.body;
     const errors = [];
-    
+
     User.create({
       username,
       email,
       password,
       status
     })
-      .then(data => {
+      .then((data) => {
         req.session.userId = data.id;
         req.session.role = status;
 
         const verificiationNumber = uuidv4();
 
         let transporter = nodemailer.createTransport({
-          host: "smtp.gmail.com",
+          host: 'smtp.gmail.com',
           port: 465,
           secure: true,
           auth: {
-            user: "hackshop.portal@gmail.com",
-            pass: "zxcmnbcv"
+            user: 'hackshop.portal@gmail.com',
+            pass: 'zxcmnbcv'
           },
           logger: true,
           transactionLog: true
         });
-      
-        transporter.sendMail({
-          from: '"HackShop Portal" <hackshop.portal@gmail.com>',
-          to: `${email}`,
-          subject: "Hello, just one step more to complete your registration at HackShop Portal",
-          text: "You should enable HTML on this",
-          html: `<p>Hi ${username}, click <a href="https://hackshop-portal.herokuapp.com/verificate?id=${ verificiationNumber }">here</a> to complete your registration at HackShop Portal.</p>`
+
+        transporter
+          .sendMail({
+            from: '"HackShop Portal" <hackshop.portal@gmail.com>',
+            to: `${email}`,
+            subject:
+              'Hello, just one step more to complete your registration at HackShop Portal',
+            text: 'You should enable HTML on this',
+            html: `<p>Hi ${username}, click <a href="https://hackshop-portal.herokuapp.com/verificate?id=${verificiationNumber}">here</a> to complete your registration at HackShop Portal.</p>`
           })
-        .then((info) => {
-          console.log(info);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+          .then((info) => {
+            console.log(info);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
 
         return Verification.create({
           UserId: data.id,
@@ -98,7 +101,7 @@ class AccountController {
           res.redirect('/items');
         }
       })
-      .catch(err => {
+      .catch((err) => {
         err.errors.forEach((e) => {
           errors.push(e.message);
         });
@@ -130,9 +133,10 @@ class AccountController {
         email
       }
     })
-      .then(data => {
-        if (password) isValidPassword = bcrypt.compareSync(password, data.password);
-        
+      .then((data) => {
+        if (password)
+          isValidPassword = bcrypt.compareSync(password, data.password);
+
         if (isValidPassword) {
           req.session.userId = data.id;
           req.session.role = data.status;
@@ -145,37 +149,41 @@ class AccountController {
           res.redirect('/login');
         }
       })
-      .catch(err => res.send(err));
+      .catch((err) => res.send(err));
   }
 
-  static postEditUser (req, res) {
+  static postEditUser(req, res) {
     let { fullName, location, phoneNumber } = req.body;
     const { userId } = req.session;
 
-    UserData.update( {
-      fullName,
-      location,
-      phoneNumber
-    }, {
-      where: {
-        UserId: userId
+    UserData.update(
+      {
+        fullName,
+        location,
+        phoneNumber
+      },
+      {
+        where: {
+          UserId: userId
+        }
       }
-    })
+    )
       .then(() => {
-      if (req.session.role === 'seller') {
-      res.redirect('/seller');
-    } else if (req.session.role === 'buyer') {
-      res.redirect('/items');}
-    })
-      .catch(err => {
+        if (req.session.role === 'seller') {
+          res.redirect('/seller');
+        } else if (req.session.role === 'buyer') {
+          res.redirect('/items');
+        }
+      })
+      .catch((err) => {
         const errorLists = [];
-        
+
         err.errors.forEach((el) => {
           errorLists.push(el.message);
         });
 
         res.redirect(`/profile?errors=${errorLists}`);
-      })
+      });
   }
 
   static verification(req, res) {
@@ -190,17 +198,20 @@ class AccountController {
       .then((data) => {
         req.session.userId = data.User.id;
         req.session.role = data.User.status;
-        
-        return User.update({
-          isVerificated: true
-        }, {
-          where: {
-            id: data.UserId
+
+        return User.update(
+          {
+            isVerificated: true
+          },
+          {
+            where: {
+              id: data.UserId
+            }
           }
-        })
+        );
       })
       .then(() => {
-        console.log('masuk destroy')
+        console.log('masuk destroy');
         return Verification.destroy({
           where: {
             verification: id
@@ -225,13 +236,13 @@ class AccountController {
       userId: req.session.userId,
       role: req.session.role
     };
-  
+
     res.render('login', { errors: [], loginObj, dataAssets });
   }
 
   static getLogout(req, res) {
     req.session.destroy();
-  
+
     res.redirect('/');
   }
 
@@ -254,8 +265,8 @@ class AccountController {
     const loginObj = {
       userId: req.session.userId,
       role: req.session.role
-    }
-    
+    };
+
     if (errors) errorLists = errors.split(',');
 
     UserData.findOne({
@@ -264,7 +275,12 @@ class AccountController {
       }
     })
       .then((data) => {
-        res.render('edit_profile', { errors: errorLists, loginObj, item: data, dataAssets });
+        res.render('edit_profile', {
+          errors: errorLists,
+          loginObj,
+          item: data,
+          dataAssets
+        });
       })
       .catch((err) => {
         res.send(err);

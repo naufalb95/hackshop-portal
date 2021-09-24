@@ -11,6 +11,12 @@ router.get('/', BuyerController.showAllItem);
 
 router.get('/:itemId', BuyerController.showDetailItem);
 
-router.get('/:itemId/add', isLogin, isVerificated, isBuyer, BuyerController.addToCart);
+router.get(
+  '/:itemId/add',
+  isLogin,
+  isVerificated,
+  isBuyer,
+  BuyerController.addToCart
+);
 
 module.exports = router;

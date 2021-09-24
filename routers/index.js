@@ -30,9 +30,21 @@ router.post('/edit', AccountController.postEditUser);
 
 router.get('/cart', isLogin, isVerificated, isBuyer, BuyerController.showCart);
 
-router.get('/cart/:itemId/delete', isLogin, isVerificated, isBuyer, BuyerController.deleteFromCart);
+router.get(
+  '/cart/:itemId/delete',
+  isLogin,
+  isVerificated,
+  isBuyer,
+  BuyerController.deleteFromCart
+);
 
-router.get('/checkout', isLogin, isVerificated, isBuyer, BuyerController.checkOut);
+router.get(
+  '/checkout',
+  isLogin,
+  isVerificated,
+  isBuyer,
+  BuyerController.checkOut
+);
 
 router.get('/verificate', AccountController.verification);
 

@@ -3,9 +3,9 @@ const cloudinary = require('cloudinary').v2;
 const { Item } = require('../models/index');
 
 cloudinary.config({
-  cloud_name: "dbktyem00",
-  api_key: "424256335419546",
-  api_secret: "-cmA_6jrXw82HDUlhMmTDk1HBLs"
+  cloud_name: 'dbktyem00',
+  api_key: '424256335419546',
+  api_secret: '-cmA_6jrXw82HDUlhMmTDk1HBLs'
 });
 
 const dataAssets = {
@@ -29,7 +29,7 @@ class SellerController {
         UserId: userId
       }
     })
-      .then(data => {
+      .then((data) => {
         const loginObj = {
           userId: req.session.userId,
           role: req.session.role
@@ -37,7 +37,7 @@ class SellerController {
 
         res.render('./seller', { items: data, loginObj, dataAssets });
       })
-      .catch(err => res.send(err));
+      .catch((err) => res.send(err));
   }
 
   static deleteItem(req, res) {
@@ -46,7 +46,7 @@ class SellerController {
     Item.findByPk(itemId)
       .then((data) => {
         cloudinary.uploader.destroy(data.imageUrl);
-        
+
         return Item.destroy({
           where: {
             id: req.params.itemId
@@ -56,7 +56,7 @@ class SellerController {
       .then(() => {
         res.redirect('/seller');
       })
-      .catch( err => res.send(err) )
+      .catch((err) => res.send(err));
   }
 
   static showAddItemForm(req, res) {
@@ -68,7 +68,7 @@ class SellerController {
     res.render('./seller/add', { loginObj, dataAssets });
   }
 
-  static createItem (req, res) {
+  static createItem(req, res) {
     const { name, price, stock, description } = req.body;
     const { userId } = req.session;
     let imageUrl = null;
@@ -83,11 +83,10 @@ class SellerController {
       description
     })
       .then(() => res.redirect('/seller'))
-      .catch(err => res.send(err));
-
+      .catch((err) => res.send(err));
   }
 
-  static postEditItem (req, res) {
+  static postEditItem(req, res) {
     const { itemId } = req.params;
     let { name, price, stock, description } = req.body;
     let imageUrl = null;
@@ -99,47 +98,53 @@ class SellerController {
         if (imageUrl) {
           cloudinary.uploader.destroy(data.imageUrl);
 
-          return Item.update({
+          return Item.update(
+            {
+              name,
+              price,
+              stock,
+              imageUrl,
+              description
+            },
+            {
+              where: {
+                id: itemId
+              }
+            }
+          );
+        }
+
+        return Item.update(
+          {
             name,
             price,
             stock,
-            imageUrl,
             description
-          }, {
+          },
+          {
             where: {
               id: itemId
             }
-          });
-        }
-
-        return Item.update({
-          name,
-          price,
-          stock,
-          description
-        }, {
-          where: {
-            id: itemId
           }
-        });
+        );
       })
-      .then( () => {
+      .then(() => {
         res.redirect('/seller');
-      }) 
-      .catch( err => res.send(err) )
+      })
+      .catch((err) => res.send(err));
   }
 
-  static showEditItem (req, res) {
+  static showEditItem(req, res) {
     Item.findByPk(req.params.itemId)
-      .then(data => {
+      .then((data) => {
         const loginObj = {
           userId: req.session.userId,
           role: req.session.role
         };
 
-        res.render('./seller/edit', { item: data, loginObj, dataAssets })
+        res.render('./seller/edit', { item: data, loginObj, dataAssets });
       })
-      .catch(err => res.send(err));
+      .catch((err) => res.send(err));
   }
 }
 

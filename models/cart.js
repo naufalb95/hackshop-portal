@@ -10,13 +10,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
 
-  Cart.init({
-    UserId: DataTypes.INTEGER,
-    ItemId: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Cart',
-  })
-  
+  Cart.init(
+    {
+      UserId: DataTypes.INTEGER,
+      ItemId: DataTypes.INTEGER
+    },
+    {
+      sequelize,
+      modelName: 'Cart'
+    }
+  );
+
   return Cart;
-}
+};
