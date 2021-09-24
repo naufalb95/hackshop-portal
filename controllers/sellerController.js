@@ -98,13 +98,24 @@ class SellerController {
       .then((data) => {
         if (imageUrl) {
           cloudinary.uploader.destroy(data.imageUrl);
+
+          return Item.update({
+            name,
+            price,
+            stock,
+            imageUrl,
+            description
+          }, {
+            where: {
+              id: itemId
+            }
+          });
         }
 
         return Item.update({
           name,
           price,
           stock,
-          imageUrl,
           description
         }, {
           where: {
@@ -112,7 +123,7 @@ class SellerController {
           }
         });
       })
-      .then( data => {
+      .then( () => {
         res.redirect('/seller');
       }) 
       .catch( err => res.send(err) )
